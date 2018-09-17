@@ -35,7 +35,13 @@ class TeamController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $team = new Team;
+        $team->name = $request->name;
+        $team->win = 0;
+        $team->lose = 0;
+        $team->league_id = $request->id;
+        $team->save();
+        return redirect("/leagues/$request->id");
     }
 
     /**

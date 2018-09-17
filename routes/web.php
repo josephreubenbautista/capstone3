@@ -21,3 +21,4 @@ Route::get('/home', 'HomeController@index');
 
 
 Route::resource('/leagues','LeagueController');
+Route::resource('/teams','TeamController');

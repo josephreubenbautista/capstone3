@@ -5,7 +5,8 @@ namespace App\Http\Controllers;
 use App\League;
 use App\Team;
 use Illuminate\Http\Request;
-use Session;
+// use Session;
+use App\Player;
 
 class LeagueController extends Controller
 {
@@ -17,20 +18,18 @@ class LeagueController extends Controller
     public function index()
     {
         $leagues = League::all();
-        $count = count($leagues);
+      
         // $teams = count(Team::where('league_id','=', 1)->get());
         // $countteams = [];
         // $leagues as $id => $name
         $leagueswith = [];
-        for($x=0; $x<$count;$x++) {
-            $leaguess = League::find($x+1);
-            $teams = Team::where('league_id', $x+1)->get();
-            $leaguess->count = count($teams);
-            $leagueswith[] = $leaguess;
+        foreach($leagues as $league) {
+            $league->count = count($league->teams);
+            $leagueswith[] = $league;
         }
 
         // dd($leagueswith);
-        return view('admin.leagues.show_leagues', compact('leagueswith'));
+        return view('leagues.show_leagues', compact('leagueswith'));
 
     
     }
@@ -65,9 +64,33 @@ class LeagueController extends Controller
      * @param  \App\League  $league
      * @return \Illuminate\Http\Response
      */
-    public function show(League $league)
+    public function show($id)
     {
-        //
+        $league = League::find($id);
+        // $teams = Team::where('league_id', $id)->get();
+        $teams = $league->teams;
+        // dd($teams);
+        // $count = count($teams);
+
+        $teamswith = [];
+        foreach($teams as $team) {
+
+            
+            $team->count = count($team->players);
+            $teamswith[] = $team;
+        }
+
+        // dd($teamswith);
+        // $leagueswith = [];
+        // for($x=0; $x<$count;$x++) {
+            // $leaguess = League::find($x+1);
+            // $teams = Team::where('league_id', $x+1)->get();
+            // $leaguess->count = count($teams);
+            // $leagueswith[] = $leaguess;
+        // }
+
+
+        return view('leagues.league_details', compact('league', 'teamswith'));
     }
 
     /**
@@ -99,8 +122,11 @@ class LeagueController extends Controller
      * @param  \App\League  $league
      * @return \Illuminate\Http\Response
      */
-    public function destroy(League $league)
+    public function destroy(Request $request, $id)
     {
-        //
+        $league = League::find($id);
+        $league->delete();
+
+        return redirect('/leagues');
     }
 }

@@ -18,18 +18,13 @@
 			</li>
 
 			<li class="nav-item">
-				<!-- Guest may changed to name -->
-				<a class="nav-link nav-text text-light" href="/">Hello, Guest </a>
+				<!-- This is for admin -->
+				<a class="nav-link nav-text text-light" href="">Messages</a>
 			</li>
 
 			<li class="nav-item">
 				<!-- This is for admin -->
-				<a class="nav-link nav-text text-light" href="#">Messages</a>
-			</li>
-
-			<li class="nav-item">
-				<!-- This is for admin -->
-				<a class="nav-link nav-text text-light" href="#">League</a>
+				<a class="nav-link nav-text text-light" href="/leagues">League</a>
 			</li>
 
 			<li class="nav-item">
@@ -40,8 +35,20 @@
 
 		<ul class="navbar-nav ml-auto">
 			<li class="nav-item">
+				<!-- Guest may changed to name -->
+				<a class="nav-link nav-text text-light" href="/">Guest </a>
+			</li>
+
+			<li class="nav-item">
 				<!-- This is for logged in user/admin -->
-				<a class="nav-link nav-text text-light" href="{{ route('logout') }}">Logout</a>
+				<a class="nav-link nav-text text-light" href="{{ route('logout') }}"
+                                       onclick="event.preventDefault();
+                                                     document.getElementById('logout-form').submit();">
+                                        Logout
+                </a>
+                <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                    @csrf
+                </form>
 			</li>
 
 			<li class="nav-item">

@@ -39,9 +39,9 @@ class TeamController extends Controller
         $team->name = $request->name;
         $team->win = 0;
         $team->lose = 0;
-        $team->league_id = $request->id;
+        $team->league_id = $request->leagueid;
         $team->save();
-        return redirect("/leagues/$request->id");
+        return redirect("/leagues/$request->leagueid/teams");
     }
 
     /**
@@ -73,9 +73,16 @@ class TeamController extends Controller
      * @param  \App\Team  $team
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Team $team)
+    public function update(Request $request, $id)
     {
-        //
+        $team = Team::find($id);
+        $team->name = $request->name;
+        $team->save();
+
+
+        // $artists = Artist::all();
+    
+        return redirect("/leagues/$request->leagueid/teams");
     }
 
     /**
@@ -84,8 +91,11 @@ class TeamController extends Controller
      * @param  \App\Team  $team
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Team $team)
+    public function destroy(Request $request, $id)
     {
-        //
+        $team = Team::find($id);
+        $team->delete();
+
+        return redirect("/leagues/$request->leagueid/teams");
     }
 }

@@ -1,6 +1,6 @@
 <nav class="navbar navbar-expand-lg navbar-light bg-dark" id="reuben">
 	<a class="navbar-brand" href="/" id="joseph">
-		<img src="images/logo.png" id="logo"> 
+		<img src="/images/logo.png" id="logo"> 
 			
 	</a>
 

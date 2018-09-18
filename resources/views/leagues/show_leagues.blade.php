@@ -32,8 +32,8 @@
 					<td id="leaguename{{$league->id}}">{{$league->name}}</td>
 					<td>{{$league->count}}</td>
 					<td  class="btn-group">
-						<a href="/leagues/{{$league->id}}/edit" class="btn btn-primary edit-btn">Edit</a>
-						<a href="/leagues/{{$league->id}}" class="btn btn-success">View</a>
+						<button type="button" class="btn btn-primary edit-btn" data-index="{{$league->id}}" data-toggle="modal" data-target="#editform">Edit</button>
+						<a href="/leagues/{{$league->id}}/teams" class="btn btn-success">View</a>
 						<button type="button" class="btn btn-danger delete-btn" data-index="{{$league->id}}" data-toggle="modal" data-target="#deleteconfirm">Delete</button>
 					</td>
 				</tr>
@@ -76,6 +76,36 @@
 	  </div>
 	</div>
 
+	<!-- Modal -->
+	<div id="editform" class="modal fade" role="dialog">
+	  <div class="modal-dialog">
+
+	    <!-- Modal content-->
+	    <div class="modal-content">
+	      <div class="modal-header">
+	      	<h4 class="modal-title">Edit League:</h4>
+	        <button type="button" class="close" data-dismiss="modal">&times;</button>
+	        
+	      </div>
+	      <div class="modal-body">
+	      	<form method="post" id="editmodal">
+				{{csrf_field()}}
+				{{method_field('PATCH')}}
+				{{-- <input type="hidden" class="form-control" name="id" id="inputid"> --}}
+	      		<input type="text" class="form-control" name="name" id="oldname" autofocus>
+	      		
+	      </div>
+	      <div class="modal-footer">
+	      	<button type="submit" class="btn btn-primary" id="addupbtn">Save</button>
+	      	</form>
+	        <button type="button" class="btn btn-danger" data-dismiss="modal" id="addupbtn">Close</button>
+	      </div>
+	      
+	    </div>
+
+	  </div>
+	</div>	
+
 
 	<script type="text/javascript">
 
@@ -86,6 +116,17 @@
 			$('#inputid').val(leagueId);
 			// console.log('/leagues/'+leagueId);
 			$('#deletesmodal').attr('action', '/leagues/'+leagueId);
+
+		});
+
+		$('.edit-btn').click( function(e) {
+			let leagueId = e.target.getAttribute('data-index');
+			// console.log($('#leaguename'+leagueId).html())
+			
+			$('#oldname').val($('#leaguename'+leagueId).html());
+			// $('#oldname').attr('autofocus');
+			// console.log('/leagues/'+leagueId);
+			$('#editmodal').attr('action', '/leagues/'+leagueId);
 
 		});
 

@@ -3,18 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\League;
-use App\Team;
+use App\User;
 use Illuminate\Http\Request;
-// use Session;
-use App\Player;
+
+
 
 class LeagueController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function index()
     {
         $leagues = League::all();
@@ -34,22 +29,6 @@ class LeagueController extends Controller
     
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request)
     {
         $league = new League;
@@ -58,13 +37,7 @@ class LeagueController extends Controller
         return redirect('/leagues');
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\League  $league
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
+    public function teams($id)
     {
         $league = League::find($id);
         // $teams = Team::where('league_id', $id)->get();
@@ -90,38 +63,39 @@ class LeagueController extends Controller
         // }
 
 
-        return view('leagues.league_details', compact('league', 'teamswith'));
+        return view('teams.show_teams', compact('league', 'teamswith'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\League  $league
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(League $league)
+    public function players($id)
     {
-        //
+        $league = League::find($id);
+        $teams = $league->teams;
+
+        $players = $league->players;
+
+        $users = User::all();
+
+        return view('players.show_players', compact('league', 'players', 'teams', 'users'));
+       
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\League  $league
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, League $league)
+    public function games($id)
     {
-        //
+    
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\League  $league
-     * @return \Illuminate\Http\Response
-     */
+    public function update(Request $request, $id)
+    {
+        $league = League::find($id);
+        $league->name = $request->name;
+        $league->save();
+
+
+        // $artists = Artist::all();
+    
+        return redirect('/leagues');
+    }
+
     public function destroy(Request $request, $id)
     {
         $league = League::find($id);

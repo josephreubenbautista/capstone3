@@ -35,7 +35,18 @@ class PlayerController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $player = new Player;
+        $player->jersey_number = $request->jersey_number;
+        $player->user_id = $request->user_id;
+        $player->team_id = $request->team_id;
+        $player->league_id = $request->league_id;
+        $player->ppg = 0.00;
+        $player->rpg = 0.00;
+        $player->apg = 0.00;
+        $player->bpg = 0.00;
+        $player->spg = 0.00;
+        $player->save();
+        return redirect("/leagues/$request->league_id/players");
     }
 
     /**

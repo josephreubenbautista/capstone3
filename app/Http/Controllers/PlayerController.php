@@ -89,8 +89,11 @@ class PlayerController extends Controller
      * @param  \App\Player  $player
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Player $player)
+    public function destroy(Request $request, $id)
     {
-        //
+        $player = Player::find($id);
+        $player->delete();
+
+        return redirect("/leagues/$request->leagueid/players/$request->teamid");
     }
 }

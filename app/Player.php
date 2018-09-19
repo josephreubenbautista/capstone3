@@ -20,4 +20,8 @@ class Player extends Model
     function league(){
     	return $this->belongsTo('\App\League');
     }
+
+    
+
+    
 }

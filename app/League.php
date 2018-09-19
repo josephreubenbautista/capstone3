@@ -9,7 +9,7 @@ class League extends Model
      public $timestamps = false;
 
      function teams(){
-     	return $this->hasMany('App\Team');
+     	return $this->hasMany('\App\Team');
      }
 
      function players(){
@@ -17,6 +17,10 @@ class League extends Model
      }
 
      function users() {
-     	return $this->belongsToMany('App\User', 'players');
+     	return $this->belongsToMany('\App\User', 'players');
+     }
+
+     function games(){
+          return $this->hasMany('\App\Game');
      }
 }

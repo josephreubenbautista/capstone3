@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use App\League;
 use App\User;
+use App\Team;
+use App\Game;
+use App\Player;
 use Illuminate\Http\Request;
 
 
@@ -79,10 +82,49 @@ class LeagueController extends Controller
        
     }
 
+    public function teamplayers($leagueid, $teamid)
+    {
+        $league = League::find($leagueid);
+        $team = Team::find($teamid);
+
+        $teams = $league->teams;
+
+        $team_id = $teamid;
+
+        $players = $team->players;
+
+        $users = User::all();
+
+        return view('players.show_teamplayers', compact('league', 'players', 'users', 'teams', 'team_id'));
+       
+    }
+
     public function games($id)
     {
+        $league = League::find($id);
     
+        $games = $league->games;
+
+        return view('games.show_games', compact('league', 'games'));
     }
+
+
+    public function gamedetails($leagueid, $gameid)
+    {
+        $league = League::find($leagueid);
+        $game = Game::find($gameid);
+
+        $statistics = $game->statistics;
+
+        $hometeam = $game->hometeam;
+        // $homeplayers = $hometeam->players;
+
+        $awayteam = $game->awayteam;
+        // $awayplayers = $awayteam->players;
+        return view('games.show_gamedetails', compact('league', 'game', 'hometeam', 'awayteam', 'statistics'));
+    }
+
+
 
     public function update(Request $request, $id)
     {

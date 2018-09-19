@@ -15,7 +15,7 @@
 					<a href="/leagues/{{$league->id}}/teams" class="nav-link">Teams</a>
 				</li>
 				<li class="nav-item">
-					<a href="/games" class="nav-link">Games</a>
+					<a href="/leagues/{{$league->id}}/games" class="nav-link">Games</a>
 				</li>
 
 				<li class="nav-item">
@@ -27,12 +27,16 @@
 		<nav class="nav">
 			<ul class="nav nav-tabs mr-auto">
 				<li class="nav-item">
-					<a href="/leagues/{{$league->id}}/players" class="nav-link active">All</a>
+					<a href="/leagues/{{$league->id}}/players" class="nav-link">All</a>
 				</li>
 
 				@foreach($teams as $team)
 					<li class="nav-item">
-						<a href="/leagues/{{$league->id}}/players/{{$team->id}}" class="nav-link">{{$team->name}}</a>
+						@if($team_id == $team->id)
+							<a href="/leagues/{{$league->id}}/players/{{$team->id}}" class="nav-link active">{{$team->name}}</a>
+						@else
+							<a href="/leagues/{{$league->id}}/players/{{$team->id}}" class="nav-link">{{$team->name}}</a>
+						@endif
 					</li>
 
 				@endforeach
@@ -67,7 +71,7 @@
 						<td>{{$player->spg}}</td>
 						<td  class="btn-group">
 							<button type="button" class="btn btn-success view-btn" data-index="{{$player->id}}">View</button>
-							
+							<button type="button" class="btn btn-primary edit-btn" data-index="{{$player->id}}" data-toggle="modal" data-target="#editform">Edit</button>
 							<button type="button" class="btn btn-danger delete-btn" data-index="{{$player->id}}" data-toggle="modal" data-target="#deleteconfirm">Delete</button>
 						</td>
 					</tr>
@@ -97,7 +101,7 @@
 				{{csrf_field()}}
 				{{method_field('DELETE')}}
 	      		<input type="hidden" class="form-control" name="playerid" id="inputplayerid">
-	      		<input type="hidden" class="form-control" name="teamid" id="inputteamid value="{{$team->id}}">
+	      		<input type="hidden" class="form-control" name="teamid" id="inputteamid" value="{{$team_id}}">
 	      		<input type="hidden" class="form-control" name="leagueid" id="inputleagueid" value="{{$league->id}}">
 	      		<button type="submit" class="btn btn-danger" id="addupbtn">Delete</button>
 	      	</form>
@@ -139,7 +143,12 @@
 	      		<select name="team_id" class="form-control">
 	      			<option value="NULL">Select Team</option>
 	      			@foreach($teams as $team)
-	      				<option value="{{$team->id}}">{{$team->name}}</option>
+	      				@if($team_id == $team->id)
+	      					<option value="{{$team->id}}" selected>{{$team->name}}</option>
+	      				@else
+	      					<option value="{{$team->id}}">{{$team->name}}</option>
+	      				@endif
+
 	      			@endforeach
 	      		</select>
 	      			
@@ -156,7 +165,35 @@
 	  </div>
 	</div>	
 
-	
+	<!-- Modal Edit-->
+	<div id="editform" class="modal fade" role="dialog">
+	  <div class="modal-dialog">
+
+	    <!-- Modal content-->
+	    <div class="modal-content">
+	      <div class="modal-header">
+	      	<h4 class="modal-title">Edit Team:</h4>
+	        <button type="button" class="close" data-dismiss="modal">&times;</button>
+	        
+	      </div>
+	      <div class="modal-body">
+	      	<form method="post" id="editmodal">
+				{{csrf_field()}}
+				{{method_field('PATCH')}}
+				<input type="hidden" class="form-control" name="leagueid" id="inputleagueid" value="{{$league->id}}">
+	      		<input type="text" class="form-control" name="name" id="oldname" autofocus>
+	      		
+	      </div>
+	      <div class="modal-footer">
+	      	<button type="submit" class="btn btn-primary" id="addupbtn">Save</button>
+	      	</form>
+	        <button type="button" class="btn btn-danger" data-dismiss="modal" id="addupbtn">Close</button>
+	      </div>
+	      
+	    </div>
+
+	  </div>
+	</div>	
 
 	<script type="text/javascript">
 
@@ -170,7 +207,16 @@
 
 		});
 
-		
+		$('.edit-btn').click( function(e) {
+			let teamId = e.target.getAttribute('data-index');
+			// console.log($('#leaguename'+leagueId).html())
+			
+			$('#oldname').val($('#teamname'+teamId).html());
+			// $('#oldname').attr('autofocus');
+			// console.log('/leagues/'+leagueId);
+			$('#editmodal').attr('action', '/teams/'+teamId);
+
+		});
 
 	</script>
   		

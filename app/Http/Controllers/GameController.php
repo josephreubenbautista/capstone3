@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Game;
 use App\Statistic;
+use App\Team;
+Use App\League;
 
 use Illuminate\Http\Request;
 
@@ -16,7 +18,7 @@ class GameController extends Controller
      */
     public function index()
     {
-         
+        
     }
 
     /**
@@ -24,9 +26,17 @@ class GameController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request)
     {
-      
+        
+    }
+
+     public function viewteams(Request $request)
+    {
+        $league = League::find($request->leagueid);
+        $teamed = $league->teams;
+        // $teamed = Team::where('league_id', $request->leagueid)->get();
+        return compact('teamed');
     }
 
     /**

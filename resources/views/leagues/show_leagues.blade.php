@@ -11,7 +11,7 @@
   		<form method="post" action="/leagues" class="col-lg-12">
 			{{csrf_field()}}
 			<div class="form-group btn-group ">
-				<input type="text" class="form-control" name="name" placeholder="League Name"><button type="submit" class="btn btn-success" id="addupbtn">Add League</button>
+				<input type="text" class="form-control" name="name" placeholder="League Name"><button type="submit" class="btn btn-success" id="addupbtn">Add</button>
 			</div>
 			
 		</form>

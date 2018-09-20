@@ -43,3 +43,5 @@ Route::resource('/teams','TeamController');
 Route::resource('/players','PlayerController');
 
 Route::resource('/games','GameController');
+
+Route::post('/games/teams', 'GameController@viewteams');

@@ -7,6 +7,7 @@ use App\User;
 use App\Team;
 use App\Game;
 use App\Player;
+use App\Statistic;
 use Illuminate\Http\Request;
 
 
@@ -116,6 +117,8 @@ class LeagueController extends Controller
 
         $statistics = $game->statistics;
 
+        // $statisticshome = $game->statistics->where($game->statistics->player->hometeam);
+
         $hometeam = $game->hometeam;
         // $homeplayers = $hometeam->players;
 
@@ -123,6 +126,158 @@ class LeagueController extends Controller
         // $awayplayers = $awayteam->players;
         return view('games.show_gamedetails', compact('league', 'game', 'hometeam', 'awayteam', 'statistics'));
     }
+
+    public function gamedetailsedit($leagueid, $gameid)
+    {
+        $league = League::find($leagueid);
+        $game = Game::find($gameid);
+
+        $statistics = $game->statistics;
+
+        // $statisticshome = $game->statistics->where($game->statistics->player->hometeam);
+
+        $hometeam = $game->hometeam;
+        // $homeplayers = $hometeam->players;
+
+        $awayteam = $game->awayteam;
+        // $awayplayers = $awayteam->players;
+        return view('games.update_gamedetails', compact('league', 'game', 'hometeam', 'awayteam', 'statistics'));
+    }
+
+
+    public function gamedetailsupdate(Request $request, $leagueid, $gameid, $statid)
+    {
+        $league = League::find($leagueid);
+        $game = Game::find($gameid);
+        $statistic = Statistic::find($statid);
+
+        if($request->has('points')){
+            $statistic->points = $request->points;
+        }
+        if($request->has('rebounds')){
+            $statistic->rebounds = $request->rebounds;
+        }
+        if($request->has('assists')){
+            $statistic->assists = $request->assists;
+        }
+        if($request->has('steals')){
+            $statistic->steals = $request->steals;
+        }
+        if($request->has('blocks')){
+            $statistic->blocks = $request->blocks;
+        }
+
+        $statistic->save();
+
+        $statistics = $game->statistics;
+
+        // $statisticshome = $game->statistics->where($game->statistics->player->hometeam);
+
+        $hometeam = $game->hometeam;
+        // $homeplayers = $hometeam->players;
+
+        $awayteam = $game->awayteam;
+        // $awayplayers = $awayteam->players;
+        $homescore = 0;
+        $awayscore = 0;
+
+        foreach ($statistics as $stat) {
+            if($stat->player->team->id==$hometeam->id){
+                $homescore+=$stat->points;
+            }
+            if($stat->player->team->id==$awayteam->id){
+                $awayscore+=$stat->points;
+            }
+
+        }
+
+        $game->home_team_score = $homescore;
+        $game->away_team_score = $awayscore;
+
+        $game->save();
+
+       
+
+        return compact('league', 'game', 'hometeam', 'awayteam', 'statistics', 'homescore', 'awayscore');
+    }
+
+
+    public function standings(Request $request, $leagueid, $gameid){
+        $league = League::find($leagueid);
+        $game = Game::find($gameid);
+
+        $homescore = $request->homescore;
+        $awayscore = $request->awayscore;
+
+        $homestand = Team::find($game->hometeam->id);
+        $homewin = $homestand->win;
+        $homelose = $homestand->lose;
+
+        $awaystand = Team::find($game->awayteam->id);
+        $awaywin = $awaystand->win;
+        $awaylose = $awaystand->lose;
+
+        if($homescore>$awayscore){
+            $homewin +=1;
+            $awaylose +=1;
+        }else if($homescore<$awayscore){
+            $awaywin +=1;
+            $homelose +=1;
+        }else{
+
+        }
+
+        $homestand->win = $homewin;
+        $homestand->lose = $homelose;
+        $homestand->save();
+
+        $awaystand->win = $awaywin;
+        $awaystand->lose = $awaylose;
+        $awaystand->save();
+
+        $statistics = $game->statistics;
+
+        // $statisticshome = $game->statistics->where($game->statistics->player->hometeam);
+
+        $hometeam = $game->hometeam;
+        // $homeplayers = $hometeam->players;
+
+        $awayteam = $game->awayteam;
+        // $awayplayers = $awayteam->players;
+
+        $games = Game::all();
+
+        // $statistics = Statistic::all();
+        // foreach ($statistics as $statistic) {
+        //     $player = Player::find($statistic)
+        // }
+
+        $players = Player::all();
+        foreach ($players as $player) {
+            $stats = $player->statistics;
+            $ppg = $player->statistics->avg('points');
+            $rpg = $player->statistics->avg('rebounds');
+            $apg = $player->statistics->avg('assists');
+            $bpg = $player->statistics->avg('blocks');
+            $spg = $player->statistics->avg('steals');
+
+            $player->ppg = $ppg;
+            $player->rpg = $rpg;
+            $player->apg = $apg;
+            $player->bpg = $bpg;
+            $player->spg = $spg;
+            $player->save();
+            // foreach ($statistics as $statistic->ha) {
+            //     $statistic
+            // }
+
+        }
+       
+       return redirect("/leagues/$leagueid/games");
+
+     
+    }
+
 
 
 

@@ -40,11 +40,11 @@ class PlayerController extends Controller
         $player->user_id = $request->user_id;
         $player->team_id = $request->team_id;
         $player->league_id = $request->league_id;
-        $player->ppg = 0.00;
-        $player->rpg = 0.00;
-        $player->apg = 0.00;
-        $player->bpg = 0.00;
-        $player->spg = 0.00;
+        $player->ppg = NULL;
+        $player->rpg = NULL;
+        $player->apg = NULL;
+        $player->bpg = NULL;
+        $player->spg = NULL;
         $player->save();
         return redirect("/leagues/$request->league_id/players");
     }

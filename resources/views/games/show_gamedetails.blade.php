@@ -23,7 +23,7 @@
 					<a href="/leagues/{{$league->id}}/players" class="nav-link">Players</a>
 				</li>
 			</ul>
-			<button type="button" class="btn btn-success ml-auto" data-toggle="modal" data-target="#addform">Add a Game</button>
+			<a href="/leagues/{{$league->id}}/games/{{$game->id}}/edit" class="btn btn-success ml-auto">Update</a>
 		</nav>
 		<hr class="my-2">
 		<div class="row">
@@ -59,13 +59,18 @@
 			<tbody>
 
 				@foreach($statistics as $statistic)
+				@if($statistic->player->team_id == $hometeam->id)
 				<tr>
 					<td>{{$statistic->player->user->first_name}}</td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
+					<td>{{$statistic->points}}</td>
+					<td>{{$statistic->rebounds}}</td>
+					<td>{{$statistic->assists}}</td>
+					<td>{{$statistic->steals}}</td>
+					<td>{{$statistic->blocks}}</td>
 				</tr>
+				
+
+				@endif
 				@endforeach
 
 			</tbody>
@@ -73,41 +78,40 @@
 
 
 
-		<hr>
+		<hr class="my-3">
 
-		<h5>{{$awayteam->name}}</h5> 
-
-		<ul>
-			@foreach($awayteam->players as $player)
-				<li>{{$player->user->first_name}}  {{$player->user->last_name}}</li>
-			@endforeach
-		</ul>
-
-		{{-- <table class="table">
+		<h2><strong>{{$awayteam->name}}</strong></h2> 
+		<hr class="my-1">
+		<table class="table">
 			<thead>
 				<tr>
-					<th>Home Team</th>
-					<th>Away Team</th>
-					<th>Home Score</th>
-					<th>Away Score</th>
-					<th>Action</th>
+					<th>Player</th>
+					<th>Points</th>
+					<th>Rebounds</th>
+					<th>Assists</th>
+					<th>Steals</th>
+					<th>Blocks</th>
 				</tr>
 			</thead>
 			<tbody>
-				@foreach($games as $game)
+
+				@foreach($statistics as $statistic)
+				@if($statistic->player->team_id == $awayteam->id)
 				<tr>
-					<td>{{$game->hometeam->name}}</td>
-					<td>{{$game->awayteam->name}}</td>
-					<td>{{$game->home_team_score}}</td>
-					<td>{{$game->away_team_score}}</td>
-					<td  class="btn-group">
-						<a href="/leagues/{{$league->id}}/games/{{$game->id}}" class="btn btn-success">View</a>
-					</td>
+					<td>{{$statistic->player->user->first_name}}</td>
+					<td>{{$statistic->points}}</td>
+					<td>{{$statistic->rebounds}}</td>
+					<td>{{$statistic->assists}}</td>
+					<td>{{$statistic->steals}}</td>
+					<td>{{$statistic->blocks}}</td>
 				</tr>
+				
+
+				@endif
 				@endforeach
 
 			</tbody>
-		</table> --}}
+		</table>
   		
   	</div>
   </div>

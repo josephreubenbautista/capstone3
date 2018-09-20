@@ -12,7 +12,11 @@ class Statistic extends Model
     	return $this->belongsTo('\App\Player');
     }
 
-    // function game(){
-    // 	return $this->belongsTo('\App\Game');
-    // }
+    function game(){
+    	return $this->belongsTo('\App\Game');
+    }
+
+    function league(){
+    	return $this->belongsTo('\App\League');
+    }
 }

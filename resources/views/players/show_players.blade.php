@@ -15,7 +15,7 @@
 					<a href="/leagues/{{$league->id}}/teams" class="nav-link">Teams</a>
 				</li>
 				<li class="nav-item">
-					<a href="/games" class="nav-link">Games</a>
+					<a href="/leagues/{{$league->id}}/games" class="nav-link">Games</a>
 				</li>
 
 				<li class="nav-item">
@@ -60,11 +60,41 @@
 						<td>{{$player->jersey_number}}</td>
 						<td id="playername{{$player->id}}">{{$player->user->first_name}} {{$player->user->last_name}}</td>
 						<td>{{$player->team->name}}</td>
-						<td>{{$player->ppg}}</td>
-						<td>{{$player->rpg}}</td>
-						<td>{{$player->apg}}</td>
-						<td>{{$player->bpg}}</td>
-						<td>{{$player->spg}}</td>
+						<td>
+							@if($player->ppg==NULL)
+								0.00
+							@else
+								{{$player->ppg}}
+							@endif
+						</td>
+						<td>
+							@if($player->rpg==NULL)
+								0.00
+							@else
+								{{$player->rpg}}
+							@endif
+						</td>
+						<td>
+							@if($player->apg==NULL)
+								0.00
+							@else
+								{{$player->apg}}
+							@endif
+						</td>
+						<td>
+							@if($player->bpg==NULL)
+								0.00
+							@else
+								{{$player->bpg}}
+							@endif
+						</td>
+						<td>
+							@if($player->spg==NULL)
+								0.00
+							@else
+								{{$player->spg}}
+							@endif
+						</td>
 						<td  class="btn-group">
 							<button type="button" class="btn btn-success view-btn" data-index="{{$player->id}}">View</button>
 							

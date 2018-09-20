@@ -29,6 +29,10 @@ Route::get('/leagues/{leagueid}/players/{teamid}', 'LeagueController@teamplayers
 Route::get('/leagues/{id}/games', 'LeagueController@games');
 
 Route::get('/leagues/{leagueid}/games/{gameid}', 'LeagueController@gamedetails');
+Route::get('/leagues/{leagueid}/games/{gameid}/edit', 'LeagueController@gamedetailsedit');
+
+Route::post('/leagues/{leagueid}/games/{gameid}/update/{statid}', 'LeagueController@gamedetailsupdate');
+Route::post('/leagues/{leagueid}/games/{gameid}/standings', 'LeagueController@standings');
 
 
 

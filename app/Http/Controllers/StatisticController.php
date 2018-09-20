@@ -60,17 +60,14 @@ class StatisticController extends Controller
         //
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Statistic  $statistic
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Statistic $statistic)
+
+    public function update(Request $request, $statid)
     {
-        //
+       
     }
+
+
+
 
     /**
      * Remove the specified resource from storage.

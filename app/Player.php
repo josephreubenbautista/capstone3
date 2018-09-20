@@ -21,6 +21,10 @@ class Player extends Model
     	return $this->belongsTo('\App\League');
     }
 
+    function statistics(){
+        return $this->hasmany('\App\Statistic');
+    }
+
     
 
     

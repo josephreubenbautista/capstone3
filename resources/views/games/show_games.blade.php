@@ -90,15 +90,16 @@
 	      		<input type="date" class="form-control" name="date" required>
 	      		<input type="time" class="form-control" name="time" required>
 	      		
-	      		
-	      		<select name="home_team_id" class="form-control" required> 
+	      		<div id="sad">
+	      		<select name="home_team_id" class="form-control" required id="homet"> 
 	      			<option value="NULL">Select Home Team</option>
 	      			@foreach($league->teams as $team)
 	      				<option value="{{$team->id}}">{{$team->name}}</option>
 	      			@endforeach
 	      		</select>
+	      		</div>
 
-	      		<select name="away_team_id" class="form-control" required>
+	      		<select name="away_team_id" class="form-control" required disabled id="awayt">
 	      			<option value="NULL">Select Away Team</option>
 	      			@foreach($league->teams as $team)
 	      				<option value="{{$team->id}}">{{$team->name}}</option>
@@ -122,6 +123,34 @@
  
   		
   <script type="text/javascript">
+  	$.ajaxSetup({
+	    headers: {
+	        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+	    }
+	});
+  	$('#awayt').attr('disabled', 'disabled');
+
+	
+
+
+	$('#homet').change( function(){
+		$('#awayt').removeAttr('disabled', 'disabled');
+		let homet = $('#homet').val();
+		
+		
+
+		// $.ajax({
+		// 	url : '/leagues/'+leagueid+'/games/'+gameid+'/update/'+statid,
+		// 	method : 'post',
+		// 	data : {points : pts},
+		// }).done( data =>{
+		// 	$('#homescore').html(data['homescore']);
+		// 	$('#homescored').val(data['homescore']);
+		// });
+
+	});
+
+
 	let timepicker = new TimePicker('time', {
 	  lang: 'en',
 	  theme: 'dark'

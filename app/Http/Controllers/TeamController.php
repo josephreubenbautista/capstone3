@@ -14,7 +14,8 @@ class TeamController extends Controller
      */
     public function index()
     {
-        //
+        $teams = Team::all();
+        return compact('teams');
     }
 
     /**
@@ -77,6 +78,9 @@ class TeamController extends Controller
     {
         $team = Team::find($id);
         $team->name = $request->name;
+        $team->win = $request->win;
+        $team->lose = $request->lose;
+
         $team->save();
 
 

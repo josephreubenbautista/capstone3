@@ -40,8 +40,8 @@
 				<tr>
 					<td id="teamname{{$team->id}}">{{$team->name}}</td>
 					<td>{{$team->count}}</td>
-					<td>{{$team->win}}</td>
-					<td>{{$team->lose}}</td>
+					<td id="win{{$team->id}}">{{$team->win}}</td>
+					<td id="lose{{$team->id}}">{{$team->lose}}</td>
 					<td  class="btn-group">
 						<button type="button" class="btn btn-primary edit-btn" data-index="{{$team->id}}" data-toggle="modal" data-target="#editform">Edit</button>
 						<button type="button" class="btn btn-danger delete-btn" data-index="{{$team->id}}" data-toggle="modal" data-target="#deleteconfirm">Delete</button>
@@ -130,7 +130,9 @@
 				{{csrf_field()}}
 				{{method_field('PATCH')}}
 				<input type="hidden" class="form-control" name="leagueid" id="inputleagueid" value="{{$league->id}}">
-	      		<input type="text" class="form-control" name="name" id="oldname" autofocus>
+	      		<label for="oldname">Team Name</label><input type="text" class="form-control" name="name" id="oldname" autofocus>
+	      		<label for="oldwin">Win</label><input type="number" min="0" class="form-control" name="win" id="oldwin" autofocus>
+	      		<label for="oldlose">Lose</label><input type="number" min="0" class="form-control" name="lose" id="oldlose" autofocus>
 	      		
 	      </div>
 	      <div class="modal-footer">
@@ -161,6 +163,8 @@
 			// console.log($('#leaguename'+leagueId).html())
 			
 			$('#oldname').val($('#teamname'+teamId).html());
+			$('#oldwin').val($('#win'+teamId).html());
+			$('#oldlose').val($('#lose'+teamId).html());
 			// $('#oldname').attr('autofocus');
 			// console.log('/leagues/'+leagueId);
 			$('#editmodal').attr('action', '/teams/'+teamId);

@@ -12,17 +12,42 @@
   		<nav class="nav">
 			<ul class="nav nav-tabs mr-auto">
 				<li class="nav-item">
-					<a href="/leagues/{{$league->id}}/teams" class="nav-link">Teams</a>
+					<a href="/leagues/{{$league->id}}/teams" class="nav-link">
+						@auth
+						@if(Auth::user()->role_id==1)
+							Teams
+						@else
+							Standings
+						@endif
+						@else
+							Standings
+						@endauth
+
+					</a>
 				</li>
 				<li class="nav-item">
-					<a href="/leagues/{{$league->id}}/games" class="nav-link">Games</a>
+					<a href="/leagues/{{$league->id}}/games" class="nav-link">
+						@auth
+						@if(Auth::user()->role_id==1)
+							Games
+						@else
+							Game Schedules
+						@endif
+						@else
+							Game Schedules
+						@endauth
+					</a>
 				</li>
 
 				<li class="nav-item">
 					<a href="/leagues/{{$league->id}}/players" class="nav-link active">Players</a>
 				</li>
 			</ul>
-			<button type="button" class="btn btn-success ml-auto" data-toggle="modal" data-target="#addform">Add Player</button>
+			@auth
+			@if(Auth::user()->role_id==1)
+				<button type="button" class="btn btn-success ml-auto" data-toggle="modal" data-target="#addform">Add Player</button>
+			@endif
+			@endauth
 		</nav>
 		<nav class="nav">
 			<ul class="nav nav-tabs mr-auto">
@@ -101,8 +126,11 @@
 						</td>
 						<td  class="btn-group">
 							<button type="button" class="btn btn-success view-btn" data-index="{{$player->id}}">View</button>
-							<button type="button" class="btn btn-primary edit-btn" data-index="{{$player->id}}" data-toggle="modal" data-target="#editform">Edit</button>
-							<button type="button" class="btn btn-danger delete-btn" data-index="{{$player->id}}" data-toggle="modal" data-target="#deleteconfirm">Delete</button>
+							@auth
+							@if(Auth::user()->role_id==1)
+								<button type="button" class="btn btn-danger delete-btn" data-index="{{$player->id}}" data-toggle="modal" data-target="#deleteconfirm">Delete</button>
+							@endif
+							@endauth
 						</td>
 					</tr>
 				@endforeach
@@ -195,35 +223,7 @@
 	  </div>
 	</div>	
 
-	<!-- Modal Edit-->
-	<div id="editform" class="modal fade" role="dialog">
-	  <div class="modal-dialog">
-
-	    <!-- Modal content-->
-	    <div class="modal-content">
-	      <div class="modal-header">
-	      	<h4 class="modal-title">Edit Team:</h4>
-	        <button type="button" class="close" data-dismiss="modal">&times;</button>
-	        
-	      </div>
-	      <div class="modal-body">
-	      	<form method="post" id="editmodal">
-				{{csrf_field()}}
-				{{method_field('PATCH')}}
-				<input type="hidden" class="form-control" name="leagueid" id="inputleagueid" value="{{$league->id}}">
-	      		<input type="text" class="form-control" name="name" id="oldname" autofocus>
-	      		
-	      </div>
-	      <div class="modal-footer">
-	      	<button type="submit" class="btn btn-primary" id="addupbtn">Save</button>
-	      	</form>
-	        <button type="button" class="btn btn-danger" data-dismiss="modal" id="addupbtn">Close</button>
-	      </div>
-	      
-	    </div>
-
-	  </div>
-	</div>	
+	
 
 	<script type="text/javascript">
 
@@ -237,17 +237,7 @@
 
 		});
 
-		$('.edit-btn').click( function(e) {
-			let teamId = e.target.getAttribute('data-index');
-			// console.log($('#leaguename'+leagueId).html())
-			
-			$('#oldname').val($('#teamname'+teamId).html());
-			// $('#oldname').attr('autofocus');
-			// console.log('/leagues/'+leagueId);
-			$('#editmodal').attr('action', '/teams/'+teamId);
-
-		});
-
+		
 	</script>
   		
   

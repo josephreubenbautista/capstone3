@@ -16,29 +16,34 @@
 			<li class="nav-item">
 				<a class="nav-link nav-text text-light" href="/home">Home</a>
 			</li>
-
+			@auth
 			<li class="nav-item">
 				<!-- This is for admin -->
-				<a class="nav-link nav-text text-light" href="">Messages</a>
+				<a class="nav-link nav-text text-light" href="">{{Auth::user()->first_name}} {{Auth::user()->last_name}}</a>
 			</li>
-
+			@endauth
 			<li class="nav-item">
 				<!-- This is for admin -->
-				<a class="nav-link nav-text text-light" href="/leagues">League</a>
+				<a class="nav-link nav-text text-light" href="/leagues">Leagues</a>
 			</li>
-
-			<li class="nav-item">
-				<!-- This is for users -->
-				<a class="nav-link nav-text text-light" href="#">Notification</a>
-			</li>
+			
 		</ul>
 
 		<ul class="navbar-nav ml-auto">
+			
+			@guest
+			<li class="nav-item">
+				<!-- both login and register are for guest -->
+				<a class="nav-link nav-text text-light" href="{{ route('login') }}">Login</a>
+			</li>
+			<li class="nav-item">
+				<a class="nav-link nav-text text-light" href="{{ route('register') }}" >Register</a>
+			</li>
+			@else
 			<li class="nav-item">
 				<!-- Guest may changed to name -->
-				<a class="nav-link nav-text text-light" href="/">Guest </a>
+				<a class="nav-link nav-text text-light" href="/">Settings</a>
 			</li>
-
 			<li class="nav-item">
 				<!-- This is for logged in user/admin -->
 				<a class="nav-link nav-text text-light" href="{{ route('logout') }}"
@@ -51,13 +56,7 @@
                 </form>
 			</li>
 
-			<li class="nav-item">
-				<!-- both login and register are for guest -->
-				<a class="nav-link nav-text text-light" href="{{ route('login') }}">Login</a>
-			</li>
-			<li class="nav-item">
-				<a class="nav-link nav-text text-light" href="{{ route('register') }}" >Register</a>
-			</li>
+			@endguest
 			
 		</ul>
 

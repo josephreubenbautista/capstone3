@@ -8,18 +8,17 @@
 
 </head>
 <body>
-<div class="wrapper">
+<div class="wrapper" id="back">
 	
-
-	<div id="content">
-		@include('partials.nav')
-	   <div class="container-fluid bg-light">
-	   	<div id="navspace"></div>
-		<div class="container">
-			@yield('content')
-	  	</div>
-	  </div>
-	</div>
+		<div id="content">
+			@include('partials.nav')
+		   <div class="container-fluid">
+		   	<div id="navspace"></div>
+			<div class="container">
+				@yield('content')
+		  	</div>
+		  </div>
+		</div>
 </div>
 
 <!-- <script type="text/javascript" src="/js/script.js"></script> -->

@@ -7,7 +7,8 @@
   <hr class="my-3">
 
   <div class="row">
-  	
+  	@auth
+  	@if(Auth::user()->role_id==1)
   		<form method="post" action="/leagues" class="col-lg-12">
 			{{csrf_field()}}
 			<div class="form-group btn-group ">
@@ -15,7 +16,8 @@
 			</div>
 			
 		</form>
-	
+	@endif
+	@endauth
   	<div class="col-lg-12 table-responsive guide card">
 
   		<table class="table">
@@ -32,9 +34,14 @@
 					<td id="leaguename{{$league->id}}">{{$league->name}}</td>
 					<td>{{$league->count}}</td>
 					<td  class="btn-group">
-						<button type="button" class="btn btn-primary edit-btn" data-index="{{$league->id}}" data-toggle="modal" data-target="#editform">Edit</button>
 						<a href="/leagues/{{$league->id}}/teams" class="btn btn-success">View</a>
-						<button type="button" class="btn btn-danger delete-btn" data-index="{{$league->id}}" data-toggle="modal" data-target="#deleteconfirm">Delete</button>
+						@auth
+						@if(Auth::user()->role_id==1)
+							<button type="button" class="btn btn-primary edit-btn" data-index="{{$league->id}}" data-toggle="modal" data-target="#editform">Edit</button>
+							
+							<button type="button" class="btn btn-danger delete-btn" data-index="{{$league->id}}" data-toggle="modal" data-target="#deleteconfirm">Delete</button>
+						@endif
+						@endauth
 					</td>
 				</tr>
 				@endforeach

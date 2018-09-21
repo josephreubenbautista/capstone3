@@ -13,17 +13,42 @@
   		<nav class="nav">
 			<ul class="nav nav-tabs mr-auto">
 				<li class="nav-item">
-					<a href="/leagues/{{$league->id}}/teams" class="nav-link ">Teams</a>
+					<a href="/leagues/{{$league->id}}/teams" class="nav-link ">
+						@auth
+						@if(Auth::user()->role_id==1)
+							Teams
+						@else
+							Standings
+						@endif
+						@else
+							Standings
+						@endauth
+
+					</a>
 				</li>
 				<li class="nav-item">
-					<a href="/leagues/{{$league->id}}/games" class="nav-link active">Games</a>
+					<a href="/leagues/{{$league->id}}/games" class="nav-link active">
+						@auth
+						@if(Auth::user()->role_id==1)
+							Games
+						@else
+							Game Schedules
+						@endif
+						@else
+							Game Schedules
+						@endauth
+					</a>
 				</li>
 
 				<li class="nav-item">
 					<a href="/leagues/{{$league->id}}/players" class="nav-link">Players</a>
 				</li>
 			</ul>
-			<a href="/leagues/{{$league->id}}/games/{{$game->id}}/edit" class="btn btn-success ml-auto">Update</a>
+			@auth
+			@if(Auth::user()->role_id==1)
+				<a href="/leagues/{{$league->id}}/games/{{$game->id}}/edit" class="btn btn-success ml-auto">Update</a>
+			@endif
+			@endauth
 		</nav>
 		<hr class="my-2">
 		<div class="row">

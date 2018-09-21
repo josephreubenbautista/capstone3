@@ -12,40 +12,81 @@
   		<nav class="nav">
 			<ul class="nav nav-tabs mr-auto">
 				<li class="nav-item">
-					<a href="/leagues/{{$league->id}}/teams" class="nav-link active">Teams</a>
+					<a href="/leagues/{{$league->id}}/teams" class="nav-link active">
+						@auth
+						@if(Auth::user()->role_id==1)
+							Teams
+						@else
+							Standings
+						@endif
+						@else
+							Standings
+						@endauth
+
+					</a>
 				</li>
 				<li class="nav-item">
-					<a href="/leagues/{{$league->id}}/games" class="nav-link">Games</a>
+					<a href="/leagues/{{$league->id}}/games" class="nav-link">
+						@auth
+						@if(Auth::user()->role_id==1)
+							Games
+						@else
+							Game Schedules
+						@endif
+						@else
+							Game Schedules
+						@endauth
+					</a>
 				</li>
 
 				<li class="nav-item">
 					<a href="/leagues/{{$league->id}}/players" class="nav-link">Players</a>
 				</li>
 			</ul>
-			<button type="button" class="btn btn-success ml-auto" data-toggle="modal" data-target="#teamform">Add a Team</button>
+			@auth
+			@if(Auth::user()->role_id==1)
+				<button type="button" class="btn btn-success ml-auto" data-toggle="modal" data-target="#teamform">Add a Team</button>
+			@endif
+			@endauth
 		</nav>
 
   		<table class="table">
 			<thead>
 				<tr>
 					<th>Team Name</th>
-					<th>Number of Players</th>
+					@auth
+					@if(Auth::user()->role_id==1)
+						<th>Number of Players</th>
+					@endif
+					@endauth
 					<th>Win</th>
 					<th>Lose</th>
-					<th>Action</th>
+					@auth
+					@if(Auth::user()->role_id==1)
+						<th>Action</th>
+					@endif
+					@endauth
 				</tr>
 			</thead>
 			<tbody>
 				@foreach($teamswith as $team)
 				<tr>
 					<td id="teamname{{$team->id}}">{{$team->name}}</td>
-					<td>{{$team->count}}</td>
+					@auth
+					@if(Auth::user()->role_id==1)
+						<td>{{$team->count}}</td>
+					@endif
+					@endauth
 					<td id="win{{$team->id}}">{{$team->win}}</td>
 					<td id="lose{{$team->id}}">{{$team->lose}}</td>
-					<td  class="btn-group">
-						<button type="button" class="btn btn-primary edit-btn" data-index="{{$team->id}}" data-toggle="modal" data-target="#editform">Edit</button>
-						<button type="button" class="btn btn-danger delete-btn" data-index="{{$team->id}}" data-toggle="modal" data-target="#deleteconfirm">Delete</button>
-					</td>
+					@auth
+					@if(Auth::user()->role_id==1)
+						<td  class="btn-group">
+							<button type="button" class="btn btn-primary edit-btn" data-index="{{$team->id}}" data-toggle="modal" data-target="#editform">Edit</button>
+							<button type="button" class="btn btn-danger delete-btn" data-index="{{$team->id}}" data-toggle="modal" data-target="#deleteconfirm">Delete</button>
+						</td>
+					@endif
+					@endauth
 				</tr>
 				@endforeach
 

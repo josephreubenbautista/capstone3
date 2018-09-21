@@ -13,10 +13,22 @@
   		<nav class="nav">
 			<ul class="nav nav-tabs mr-auto">
 				<li class="nav-item">
-					<a href="/leagues/{{$league->id}}/teams" class="nav-link ">Teams</a>
+					<a href="/leagues/{{$league->id}}/teams" class="nav-link ">
+						@if(Auth::user()->role_id==1)
+							Teams
+						@else
+							Standings
+						@endif
+					</a>
 				</li>
 				<li class="nav-item">
-					<a href="/leagues/{{$league->id}}/games" class="nav-link active">Games</a>
+					<a href="/leagues/{{$league->id}}/games" class="nav-link active">
+						@if(Auth::user()->role_id==1)
+							Games
+						@else
+							Game Schedule
+						@endif
+					</a>
 				</li>
 
 				<li class="nav-item">
@@ -25,8 +37,8 @@
 			</ul>
 			<form method="post" action="/leagues/{{$league->id}}/games/{{$game->id}}/standings">
 				{{csrf_field()}}
-				<input type="text" name="homescore" id="homescored" value="{{$game->home_team_score}}">
-				<input type="text" name="awayscore" id="awayscored" value="{{$game->away_team_score}}">
+				<input type="hidden" name="homescore" id="homescored" value="{{$game->home_team_score}}">
+				<input type="hidden" name="awayscore" id="awayscored" value="{{$game->away_team_score}}">
 				<button class="btn btn-success ml-auto">Finalize</button>
 			</form>
 			{{-- <a href="/leagues/{{$league->id}}/games/{{$game->id}}/edit" class="btn btn-success ml-auto">Finalize</a> --}}

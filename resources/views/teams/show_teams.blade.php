@@ -8,7 +8,7 @@
 
   <div class="row">
 	
-  	<div class="col-lg-12 table-responsive guide card">
+  	<div class="col-lg-12 table-responsive guide card"  id="background">
   		<nav class="nav">
 			<ul class="nav nav-tabs mr-auto">
 				<li class="nav-item">

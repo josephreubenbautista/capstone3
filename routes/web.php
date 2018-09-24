@@ -47,6 +47,7 @@ Route::post('/leagues/{leagueid}/games/{gameid}/update/{statid}', 'LeagueControl
 Route::post('/leagues/{leagueid}/games/{gameid}/standings', 'LeagueController@standings');
 
 
+Route::post('/users/{id}', 'UserController@update');
 
 Route::resource('/teams','TeamController');
 

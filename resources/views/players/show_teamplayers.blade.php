@@ -8,7 +8,7 @@
 
   <div class="row">
 	
-  	<div class="col-lg-12 table-responsive guide card">
+  	<div class="col-lg-12 table-responsive guide card" id="background">
   		<nav class="nav">
 			<ul class="nav nav-tabs mr-auto">
 				<li class="nav-item">
@@ -124,14 +124,13 @@
 								{{$player->spg}}
 							@endif
 						</td>
-						<td  class="btn-group">
-							<button type="button" class="btn btn-success view-btn" data-index="{{$player->id}}">View</button>
-							@auth
-							@if(Auth::user()->role_id==1)
-								<button type="button" class="btn btn-danger delete-btn" data-index="{{$player->id}}" data-toggle="modal" data-target="#deleteconfirm">Delete</button>
-							@endif
-							@endauth
+						@auth
+						@if(Auth::user()->role_id==1)
+						<td  class="btn-group">							
+							<button type="button" class="btn btn-danger delete-btn" data-index="{{$player->id}}" data-toggle="modal" data-target="#deleteconfirm">Delete</button>
 						</td>
+						@endif
+						@endauth
 					</tr>
 				@endforeach
 			</tbody>

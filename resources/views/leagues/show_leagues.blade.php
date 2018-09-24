@@ -7,9 +7,10 @@
   <hr class="my-3">
 
   <div class="row">
+  	<div class="col-lg-12 table-responsive guide card" id="background">
   	@auth
   	@if(Auth::user()->role_id==1)
-  		<form method="post" action="/leagues" class="col-lg-12">
+  		<form method="post" action="/leagues">
 			{{csrf_field()}}
 			<div class="form-group btn-group ">
 				<input type="text" class="form-control" name="name" placeholder="League Name" required><button type="submit" class="btn btn-success" id="addupbtn">
@@ -20,7 +21,6 @@
 		</form>
 	@endif
 	@endauth
-  	<div class="col-lg-12 table-responsive guide card">
 
   		<table class="table ">
 			<thead>

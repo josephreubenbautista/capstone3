@@ -73,6 +73,7 @@ class RegisterController extends Controller
             'last_name' => $data['last_name'],
             'role_id' => 2,
             'contact_number' => $data['contact_number'],
+            'image' => 'images/user.png',
         ]);
     }
 }

@@ -12,7 +12,9 @@
   		<form method="post" action="/leagues" class="col-lg-12">
 			{{csrf_field()}}
 			<div class="form-group btn-group ">
-				<input type="text" class="form-control" name="name" placeholder="League Name"><button type="submit" class="btn btn-success" id="addupbtn">Add</button>
+				<input type="text" class="form-control" name="name" placeholder="League Name" required><button type="submit" class="btn btn-success" id="addupbtn">
+					<i class="fas fa-plus"></i>
+				</button>
 			</div>
 			
 		</form>
@@ -20,29 +22,39 @@
 	@endauth
   	<div class="col-lg-12 table-responsive guide card">
 
-  		<table class="table">
+  		<table class="table ">
 			<thead>
-				<tr>
-					<th>League Name</th>
-					<th>Number of Teams</th>
-					<th>Action</th>
+				<tr >
+					<th class="action theads">Action</th>
+					<th class="theads">League</th>
+					<th class="theads">Teams</th>
+					
 				</tr>
 			</thead>
 			<tbody>
 				@foreach($leagueswith as $league)
 				<tr>
-					<td id="leaguename{{$league->id}}">{{$league->name}}</td>
-					<td>{{$league->count}}</td>
-					<td  class="btn-group">
-						<a href="/leagues/{{$league->id}}/teams" class="btn btn-success">View</a>
-						@auth
+					<td class="action">
+						<div class="btn-group">
+						<a href="/leagues/{{$league->id}}/teams" class="btn btn-primary" id="view-btn"><i class="fas fa-eye"></i></a>
+					@auth
 						@if(Auth::user()->role_id==1)
-							<button type="button" class="btn btn-primary edit-btn" data-index="{{$league->id}}" data-toggle="modal" data-target="#editform">Edit</button>
 							
-							<button type="button" class="btn btn-danger delete-btn" data-index="{{$league->id}}" data-toggle="modal" data-target="#deleteconfirm">Delete</button>
+								<button type="button" class="btn btn-success edit-btn" id="edit-btns" data-index="{{$league->id}}" data-toggle="modal" data-target="#editform" >
+									<i class="fas fa-pencil-alt"></i>
+								</button>
+
+								<button type="button" class="btn btn-danger delete-btn" id="delete-btns" data-index="{{$league->id}}" data-toggle="modal" data-target="#deleteconfirm">
+									<i class="far fa-trash-alt"></i>
+								</button>
+							
 						@endif
-						@endauth
+					@endauth
+					</div>
 					</td>
+					<td id="leaguename{{$league->id}}" class="name">{{$league->name}}</td>
+					<td class="name">{{$league->count}}</td>
+					
 				</tr>
 				@endforeach
 

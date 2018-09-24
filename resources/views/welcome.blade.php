@@ -16,52 +16,52 @@
           </ul>
           <div class="carousel-inner">
             <div class="carousel-item active">
-              <img src="images/1.jpg" alt="1.jpg" class="carousel-image">
-              <div class="carousel-caption caption-box">
-                <h3>Jcube Basketball</h3>
-                <p>Joseph Bautista playing the point.</p>
+              <img src="images/1.jpg" alt="1.jpg" class="carousel-image img-fluid">
+              <div class="carousel-caption caption-box col-xs-12">
+                <h3 class="h3title">Jcube Basketball</h3>
+                <p class="pcaption">Joseph Bautista playing the point.</p>
               </div>   
             </div>
             <div class="carousel-item">
-              <img src="images/2.jpg" alt="2.jpg" class="carousel-image">
-              <div class="carousel-caption caption-box">
-                <h3>Jcube Basketball</h3>
-                <p>D'Rocks Basketball Team</p>
+              <img src="images/2.jpg" alt="2.jpg" class="carousel-image img-fluid">
+              <div class="carousel-caption caption-box col-xs-12">
+                <h3 class="h3title">Jcube Basketball</h3>
+                <p class="pcaption">D'Rocks Basketball Team</p>
               </div>   
             </div>
             <div class="carousel-item">
-              <img src="images/3.jpg" alt="3.jpg" class="carousel-image">
-              <div class="carousel-caption caption-box">
-                <h3>Jcube Basketball</h3>
-                <p>This is what Camaraderie Cup is made for.</p>
+              <img src="images/3.jpg" alt="3.jpg" class="carousel-image img-fluid">
+              <div class="carousel-caption caption-box col-xs-12">
+                <h3 class="h3title">Jcube Basketball</h3>
+                <p class="pcaption">This is what Camaraderie Cup is made for.</p>
               </div>   
             </div>
             <div class="carousel-item">
-              <img src="images/4.jpg" alt="4.jpg" class="carousel-image">
-              <div class="carousel-caption caption-box">
-                <h3>Jcube Basketball</h3>
-                <p>Splitting the defense.</p>
+              <img src="images/4.jpg" alt="4.jpg" class="carousel-image img-fluid">
+              <div class="carousel-caption caption-box col-xs-12">
+                <h3 class="h3title">Jcube Basketball</h3>
+                <p class="pcaption">Splitting the defense.</p>
               </div>   
             </div>
             <div class="carousel-item">
-              <img src="images/5.jpg" alt="5.jpg" class="carousel-image">
-              <div class="carousel-caption caption-box">
-                <h3>Jcube Basketball</h3>
-                <p>ATTACK!</p>
+              <img src="images/5.jpg" alt="5.jpg" class="carousel-image img-fluid">
+              <div class="carousel-caption caption-box col-xs-12">
+                <h3 class="h3title">Jcube Basketball</h3>
+                <p class="pcaption">ATTACK!</p>
               </div>   
             </div>
             <div class="carousel-item">
-              <img src="images/6.jpg" alt="6.jpg" class="carousel-image">
-              <div class="carousel-caption caption-box">
-                <h3>Jcube Basketball</h3>
-                <p>Where humans became anime characters</p>
+              <img src="images/6.jpg" alt="6.jpg" class="carousel-image img-fluid">
+              <div class="carousel-caption caption-box col-xs-12">
+                <h3 class="h3title">Jcube Basketball</h3>
+                <p class="pcaption">Where humans became anime characters</p>
               </div>   
             </div>
             <div class="carousel-item">
-              <img src="images/7.jpg" alt="7.jpg" class="carousel-image">
-              <div class="carousel-caption caption-box ">
-                <h3>Jcube Basketball</h3>
-                <p>The Bae.</p>
+              <img src="images/7.jpg" alt="7.jpg" class="carousel-image img-fluid">
+              <div class="carousel-caption caption-box col-xs-12 ">
+                <h3 class="h3title">Jcube Basketball</h3>
+                <p class="pcaption">The Bae.</p>
               </div>   
             </div>
           </div>

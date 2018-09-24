@@ -14,7 +14,7 @@
 
 		<ul class="navbar-nav mr-auto">
 			<li class="nav-item">
-				<a class="nav-link nav-text text-light" href="/home">Home</a>
+				<a class="nav-link nav-text text-light" href="/">Home</a>
 			</li>
 			@auth
 			<li class="nav-item">
@@ -42,7 +42,7 @@
 			@else
 			<li class="nav-item">
 				<!-- Guest may changed to name -->
-				<a class="nav-link nav-text text-light" href="/">Settings</a>
+				<a class="nav-link nav-text text-light" href="/users">Settings</a>
 			</li>
 			<li class="nav-item">
 				<!-- This is for logged in user/admin -->

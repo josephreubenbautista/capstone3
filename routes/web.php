@@ -15,6 +15,18 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::get('/users', function () {
+	if(Auth::id()){
+		
+    return view('users.account_settings');
+	}
+    else{
+
+     return redirect('/');
+    } 
+    
+});
+
 Auth::routes();
 
 Route::get('/home', 'HomeController@index');

@@ -4,7 +4,16 @@
 	margin: 0;
 	padding: 0;
 	box-sizing: border-box;
+	max-width: 100vw;
+	max-height: 100%;
+	font-family: 'Titillium Web', sans-serif;
+}
+
+html, body{
 	
+	max-width: 100%;
+	overflow-x: hidden;
+
 }
 
 body{
@@ -15,14 +24,24 @@ body{
 	background-size: cover;
 }
 
-/*.footer {
-    position: absolute;
+.footer {
+    position: relative;
     bottom: 0;
     width: 100%;
     height: 60px;
     line-height: 60px;
     background-color: #f5f5f5;
-}*/
+    margin-top: 50px;
+}
+
+#background{
+	background-color: rgba(119, 136, 153,0.2);
+    border-radius: 20px;
+    height: 500px;
+    margin-top: 50px;
+    padding: 50px;
+}
+
 #navspace{
 	height: 25px;
 
@@ -42,10 +61,10 @@ body{
 }
 
 
-/*.guide{
-	border: 2px solid black;
+.guide{
+	border: 2px solid red;
 }
-*/
+
 .error_message{
 	color: red;
 }
@@ -68,8 +87,9 @@ body{
 
 
 #addupbtn{
-	width: 200px;
+	/*width: 200px;*/
 	/*height: 40px;*/
+	padding: 10px;
 }
 
 .games{
@@ -82,4 +102,113 @@ body{
 #gameresult{
 	margin-left: 30px;
 	margin-top: 20px;
+}
+
+.leaguename{
+	color: blue;
+	/*text-decoration-color: blue;*/
+}
+
+
+.action{
+	width: 50px;
+	/*font-size: 24px;
+	font-weight: bold;*/
+}
+
+.name{
+	font-size: 20px;
+	/*font-weight: bold;*/
+
+}
+
+.theads{
+	font-size: 24px;
+	font-weight: bold;
+}
+
+.names{
+	font-size: 20px;
+	/*font-weight: bold;*/
+
+}
+.theads1{
+	font-size: 24px;
+	font-weight: bold;
+}
+
+
+/*Extra small devices (portrait phones, less than 576px)*/
+@media (max-width: 575.98px) {
+	.h3title{
+		font-size: 16px;
+		margin: 0px;
+		padding: 0px;
+	}
+	.pcaption{
+		font-size: 10px;
+		margin: 0px;
+		padding: 0px;
+	}
+
+	#view-btn{
+		/*margin: 2px;*/
+		padding: 5px;
+		/*font-size: 10px;*/
+		/*background-color: */
+	}
+	#edit-btns{
+		/*margin: 2px;*/
+		padding: 5px;
+		/*font-size: 10px;*/
+		/*background-color: */
+	}
+	#delete-btns{
+		/*margin: 2px;*/
+		padding: 5px;
+		/*font-size: 10px;*/
+		/*background-color: */
+	}
+
+	.name{
+		font-size: 14px;
+		/*font-weight: bold;*/
+
+	}
+
+	.theads{
+		font-size: 18px;
+		font-weight: bold;
+	}
+
+	.names{
+		font-size: 12px;
+		/*font-weight: bold;*/
+
+	}
+	.theads1{
+		font-size: 16px;
+		font-weight: bold;
+	}
+
+}
+
+ /*Small devices (landscape phones, 576px and up)*/
+@media (min-width: 576px) and (max-width: 767.98px) {
+
+}
+
+ /*Medium devices (tablets, 768px and up)*/
+@media (min-width: 768px) and (max-width: 991.98px) {
+	
+}
+
+ /*Large devices (desktops, 992px and up)*/
+@media (min-width: 992px) and (max-width: 1199.98px) {
+
+}
+
+ /*Extra large devices (large desktops, 1200px and up)*/
+@media (min-width: 1200px) {
+
 }

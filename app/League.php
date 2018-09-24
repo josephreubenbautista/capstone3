@@ -3,11 +3,11 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
-
+use SoftDeletes;
 class League extends Model
 {
      public $timestamps = false;
-
+     protected $dates =['deleted_at'];
      function teams(){
      	return $this->hasMany('\App\Team');
      }

@@ -44,49 +44,58 @@
 				</li>
 			</ul>
 			@auth
-			@if(Auth::user()->role_id==1)
-				<button type="button" class="btn btn-success ml-auto" data-toggle="modal" data-target="#teamform">Add a Team</button>
-			@endif
-			@endauth
+						@if(Auth::user()->role_id==1)
+							<button type="button" id="addupbtn" class="btn btn-primary ml-auto" data-toggle="modal" data-target="#teamform"><i class="fas fa-plus"></i></button>
+						@endif
+						@endauth
+					</th>
 		</nav>
 
   		<table class="table">
 			<thead>
 				<tr>
-					<th>Team Name</th>
 					@auth
 					@if(Auth::user()->role_id==1)
-						<th>Number of Players</th>
+						<th class="action theads1">Action</th>
 					@endif
 					@endauth
-					<th>Win</th>
-					<th>Lose</th>
+					<th class="theads1">Team</th>
+						
 					@auth
 					@if(Auth::user()->role_id==1)
-						<th>Action</th>
+						<th class="theads1">Players</th>
 					@endif
 					@endauth
+					<th class="theads1">Win</th>
+					<th class="theads1">Lose</th>
+					
 				</tr>
 			</thead>
 			<tbody>
 				@foreach($teamswith as $team)
 				<tr>
-					<td id="teamname{{$team->id}}">{{$team->name}}</td>
 					@auth
 					@if(Auth::user()->role_id==1)
-						<td>{{$team->count}}</td>
-					@endif
-					@endauth
-					<td id="win{{$team->id}}">{{$team->win}}</td>
-					<td id="lose{{$team->id}}">{{$team->lose}}</td>
-					@auth
-					@if(Auth::user()->role_id==1)
-						<td  class="btn-group">
-							<button type="button" class="btn btn-primary edit-btn" data-index="{{$team->id}}" data-toggle="modal" data-target="#editform">Edit</button>
-							<button type="button" class="btn btn-danger delete-btn" data-index="{{$team->id}}" data-toggle="modal" data-target="#deleteconfirm">Delete</button>
+						<td class="btn-group">
+							<button type="button" class="btn btn-success edit-btn" id="edit-btns" data-index="{{$team->id}}" data-toggle="modal" data-target="#editform">
+								<i class="fas fa-pencil-alt"></i>
+							</button>
+
+							<button type="button" class="btn btn-danger delete-btn" id="delete-btns" data-index="{{$team->id}}" data-toggle="modal" data-target="#deleteconfirm">
+								<i class="far fa-trash-alt"></i>
+							</button>
 						</td>
 					@endif
 					@endauth
+					<td id="teamname{{$team->id}}" class="names">{{$team->name}}</td>
+					@auth
+					@if(Auth::user()->role_id==1)
+						<td class="name">{{$team->count}}</td>
+					@endif
+					@endauth
+					<td id="win{{$team->id}}" class="names">{{$team->win}}</td>
+					<td id="lose{{$team->id}}" class="names">{{$team->lose}}</td>
+					
 				</tr>
 				@endforeach
 

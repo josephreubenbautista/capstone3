@@ -3,11 +3,12 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use SoftDeletes;
 
 class Player extends Model
 {
 	public $timestamps = false;
-
+    protected $dates =['deleted_at'];
 
     function user(){
     	return $this->belongsTo('App\User');

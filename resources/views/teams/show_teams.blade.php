@@ -3,12 +3,13 @@
 @section('title', 'JCube Basketball | Leagues')
 
 @section('content')
-  <h1>{{$league->name}}</h1>
-  <hr class="my-3">
+  
 
   <div class="row">
 	
   	<div class="col-lg-12 table-responsive guide card"  id="background">
+  		<h1>{{$league->name}}</h1>
+  		<hr class="my-3">
   		<nav class="nav">
 			<ul class="nav nav-tabs mr-auto">
 				<li class="nav-item">
@@ -26,21 +27,21 @@
 					</a>
 				</li>
 				<li class="nav-item">
-					<a href="/leagues/{{$league->id}}/games" class="nav-link">
+					<a href="/leagues/{{$league->id}}/games" class="nav-link" id="box-score">
 						@auth
 						@if(Auth::user()->role_id==1)
 							Games
 						@else
-							Game Schedules
+							Schedules
 						@endif
 						@else
-							Game Schedules
+							Schedules
 						@endauth
 					</a>
 				</li>
 
 				<li class="nav-item">
-					<a href="/leagues/{{$league->id}}/players" class="nav-link">Players</a>
+					<a href="/leagues/{{$league->id}}/players" class="nav-link" id="box-score">Players</a>
 				</li>
 			</ul>
 			@auth
@@ -50,7 +51,10 @@
 						@endauth
 					</th>
 		</nav>
-
+		@if(Session::has('success_message'))
+			<div class="alert alert-success">{{Session::get('success_message')}}</div>
+		@endif
+		<hr class="my-2">
   		<table class="table">
 			<thead>
 				<tr>
@@ -197,7 +201,7 @@
 	</div>	
 
 	<script type="text/javascript">
-
+		$('#leagues').attr('class','navi');
 		$('.delete-btn').click( function(e) {
 			let teamId = e.target.getAttribute('data-index');
 

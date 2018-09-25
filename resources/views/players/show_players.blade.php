@@ -3,16 +3,17 @@
 @section('title', 'JCube Basketball | Leagues')
 
 @section('content')
-  <h1>{{$league->name}}</h1>
-  <hr class="my-3">
+  
 
   <div class="row">
 	
   	<div class="col-lg-12 col-xs-12 table-responsive guide card"  id="background">
+  		<h1>{{$league->name}}</h1>
+  		<hr class="my-3">
   		<nav class="nav">
 			<ul class="nav nav-tabs mr-auto">
 				<li class="nav-item">
-					<a href="/leagues/{{$league->id}}/teams" class="nav-link">
+					<a href="/leagues/{{$league->id}}/teams" class="nav-link" id="box-score">
 						@auth
 						@if(Auth::user()->role_id==1)
 							Teams
@@ -26,15 +27,15 @@
 					</a>
 				</li>
 				<li class="nav-item">
-					<a href="/leagues/{{$league->id}}/games" class="nav-link">
+					<a href="/leagues/{{$league->id}}/games" class="nav-link" id="box-score">
 						@auth
 						@if(Auth::user()->role_id==1)
 							Games
 						@else
-							Game Schedules
+							Schedules
 						@endif
 						@else
-							Game Schedules
+							Schedules
 						@endauth
 					</a>
 				</li>
@@ -45,7 +46,7 @@
 			</ul>
 			@auth
 			@if(Auth::user()->role_id==1)
-				<button type="button" class="btn btn-success ml-auto" data-toggle="modal" data-target="#addform">Add Player</button>
+				<button type="button" class="btn btn-primary ml-auto" id="addupbtn" data-toggle="modal" data-target="#addform"><i class="fas fa-plus"></i></button>
 			@endif
 			@endauth
 		</nav>
@@ -57,13 +58,92 @@
 
 				@foreach($teams as $team)
 					<li class="nav-item">
-						<a href="/leagues/{{$league->id}}/players/{{$team->id}}" class="nav-link">{{$team->name}}</a>
+						<a href="/leagues/{{$league->id}}/players/{{$team->id}}" class="nav-link" id="box-score">{{$team->name}}</a>
 					</li>
 
 				@endforeach
 			</ul>
 		</nav>
-
+		 @if(Session::has('success_message'))
+					<div class="alert alert-success">{{Session::get('success_message')}}</div>
+				@endif
+		<hr class="my-3">
+		<div class="row">
+			@foreach($players as $player)
+				<div class="card col-11 col-md-5 col-lg-3" id="player-details">
+					<center><img class="card-img-top img-fluid" id="dp" src="{{$player->user->image}}"></center>
+					<div class="card-body">
+						<h5 class="card-title player-name"><strong><em>#{{$player->jersey_number}}</em></strong><br> <span id="playername{{$player->id}}">{{$player->user->first_name}} {{$player->user->last_name}}</span><p><small>{{$player->team->name}}</small></p></h5>
+						<div class="row">
+						<p class="card-text player-stat col-6" id="player-stat">
+							<strong>PPG: </strong>
+							<span>
+								@if($player->ppg==NULL)
+									0.00
+								@else
+									{{$player->ppg}}
+								@endif
+								
+							</span>
+						</p>
+						<p class="card-text player-stat col-6" id="player-stat">
+							<strong>RPG: </strong>
+							<span>
+								@if($player->rpg==NULL)
+									0.00
+								@else
+									{{$player->rpg}}
+								@endif
+								
+							</span>
+						</p>
+						<p class="card-text player-stat col-6" id="player-stat">
+							<strong>APG: </strong>
+							<span>
+								@if($player->apg==NULL)
+									0.00
+								@else
+									{{$player->apg}}
+								@endif
+								
+							</span>
+						</p>
+						<p class="card-text player-stat col-6" id="player-stat">
+							<strong>SPG: </strong>
+							<span>
+								@if($player->spg==NULL)
+									0.00
+								@else
+									{{$player->spg}}
+								@endif
+								
+							</span>
+						</p>
+						<p class="card-text player-stat col-6 offset-3" id="player-stat">
+							<strong>BPG: </strong>
+							<span>
+								@if($player->bpg==NULL)
+									0.00
+								@else
+									{{$player->bpg}}
+								@endif
+								
+							</span>
+						</p>
+						</div>
+						@auth
+						@if(Auth::user()->role_id==1)
+							<center>
+								
+								<button type="button" class="btn btn-danger delete-btn" data-index="{{$player->id}}" data-toggle="modal" data-target="#deleteconfirm">Delete</button>
+							</center>
+						@endif
+						@endauth
+					</div>
+				</div>
+			@endforeach
+		</div>
+{{-- 
   		<table class="table">
 			<thead>
 				<tr>
@@ -75,8 +155,11 @@
 					<th>APG</th>
 					<th>BPG</th>
 					<th>SPG</th>
-					
+					@auth
+					@if(Auth::user()->role_id==1)
 					<th>Action</th>
+					@endif
+					@endauth
 				</tr>
 			</thead>
 			<tbody>
@@ -130,7 +213,7 @@
 					</tr>
 				@endforeach
 			</tbody>
-		</table>
+		</table> --}}
 
   	</div>
   </div>
@@ -216,7 +299,7 @@
 	
 
 	<script type="text/javascript">
-
+		$('#leagues').attr('class','navi');
 		$('.delete-btn').click( function(e) {
 			let playerId = e.target.getAttribute('data-index');
 

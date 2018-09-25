@@ -3,17 +3,18 @@
 @section('title', 'JCube Basketball | Leagues')
 
 @section('content')
-  <h1>{{$league->name}}</h1>
-  <h3>{{$game->hometeam->name}} vs. {{$game->awayteam->name}}</h3>
-  <hr class="my-3">
+  
 
   <div class="row">
 	
-  	<div class="col-lg-12 table-responsive guide card">
+  	<div class="col-lg-12 table-responsive guide card"  id="background">
+  		<h1>{{$league->name}}</h1>
+		  <h3>{{$game->hometeam->name}} vs. {{$game->awayteam->name}}</h3>
+		  <hr class="my-3">
   		<nav class="nav">
 			<ul class="nav nav-tabs mr-auto">
 				<li class="nav-item">
-					<a href="/leagues/{{$league->id}}/teams" class="nav-link ">
+					<a href="/leagues/{{$league->id}}/teams" class="nav-link " id="box-score">
 						@if(Auth::user()->role_id==1)
 							Teams
 						@else
@@ -26,23 +27,26 @@
 						@if(Auth::user()->role_id==1)
 							Games
 						@else
-							Game Schedule
+							Schedule
 						@endif
 					</a>
 				</li>
 
 				<li class="nav-item">
-					<a href="/leagues/{{$league->id}}/players" class="nav-link">Players</a>
+					<a href="/leagues/{{$league->id}}/players" class="nav-link" id="box-score">Players</a>
 				</li>
 			</ul>
 			<form method="post" action="/leagues/{{$league->id}}/games/{{$game->id}}/standings">
 				{{csrf_field()}}
 				<input type="hidden" name="homescore" id="homescored" value="{{$game->home_team_score}}">
 				<input type="hidden" name="awayscore" id="awayscored" value="{{$game->away_team_score}}">
-				<button class="btn btn-success ml-auto">Finalize</button>
+				<button id="addupbtn" class="btn btn-success ml-auto"><i class="far fa-save"></i></button>
 			</form>
 			{{-- <a href="/leagues/{{$league->id}}/games/{{$game->id}}/edit" class="btn btn-success ml-auto">Finalize</a> --}}
 		</nav>
+		 @if(Session::has('success_message'))
+					<div class="alert alert-success">{{Session::get('success_message')}}</div>
+				@endif
 		<hr class="my-2">
 		<div class="row">
 			<table class="col-lg-3 table" id="gameresult">
@@ -66,12 +70,12 @@
 		<table class="table" id="hometable">
 			<thead>
 				<tr>
-					<th>Player</th>
-					<th>Points</th>
-					<th>Rebounds</th>
-					<th>Assists</th>
-					<th>Steals</th>
-					<th>Blocks</th>
+					<th class="pads">Player</th>
+					<th class="pads">Pts</th>
+					<th class="pads">Rebs</th>
+					<th class="pads">Asts</th>
+					<th class="pads">Stls</th>
+					<th class="pads">Blks</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -79,12 +83,12 @@
 				@foreach($statistics as $statistic)
 				@if($statistic->player->team_id == $hometeam->id)
 				<tr>
-					<td>{{$statistic->player->user->first_name}}</td>
-					<td><input type="number" min="0" name="points" id="points{{$statistic->id}}" class="form-control points" style="width:100px;" value="{{$statistic->points}}" data-index="{{$statistic->id}}"></td>
-					<td><input type="number" min="0" name="rebounds" id="rebounds{{$statistic->id}}" class="form-control rebounds" style="width:100px;" value="{{$statistic->rebounds}}" data-index="{{$statistic->id}}"></td>
-					<td><input type="number" min="0" name="assists" id="assists{{$statistic->id}}" class="form-control assists" style="width:100px;" value="{{$statistic->assists}}" data-index="{{$statistic->id}}"></td>
-					<td><input type="number" min="0" name="steals" id="steals{{$statistic->id}}" class="form-control steals" style="width:100px;" value="{{$statistic->steals}}" data-index="{{$statistic->id}}"></td>
-					<td><input type="number" min="0" name="blocks" id="blocks{{$statistic->id}}" class="form-control blocks" style="width:100px;" value="{{$statistic->blocks}}" data-index="{{$statistic->id}}"></td>
+					<td class="pads">{{$statistic->player->user->first_name}}</td>
+					<td class="pads"><input type="number" min="0" name="points" id="points{{$statistic->id}}" class="stat points" value="{{$statistic->points}}" data-index="{{$statistic->id}}"></td>
+					<td class="pads"><input type="number" min="0" name="rebounds" id="rebounds{{$statistic->id}}" class="stat rebounds" value="{{$statistic->rebounds}}" data-index="{{$statistic->id}}"></td>
+					<td class="pads"><input type="number" min="0" name="assists" id="assists{{$statistic->id}}" class="stat assists" value="{{$statistic->assists}}" data-index="{{$statistic->id}}"></td>
+					<td class="pads"><input type="number" min="0" name="steals" id="steals{{$statistic->id}}" class="stat steals" value="{{$statistic->steals}}" data-index="{{$statistic->id}}"></td>
+					<td class="pads"><input type="number" min="0" name="blocks" id="blocks{{$statistic->id}}" class="stat blocks"  value="{{$statistic->blocks}}" data-index="{{$statistic->id}}"></td>
 				</tr>
 				
 
@@ -104,11 +108,11 @@
 			<thead>
 				<tr>
 					<th>Player</th>
-					<th>Points</th>
-					<th>Rebounds</th>
-					<th>Assists</th>
-					<th>Steals</th>
-					<th>Blocks</th>
+					<th>Pts</th>
+					<th>Rebs</th>
+					<th>Asts</th>
+					<th>Stls</th>
+					<th>Blks</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -117,11 +121,11 @@
 				@if($statistic->player->team_id == $awayteam->id)
 				<tr>
 					<td>{{$statistic->player->user->first_name}}</td>
-					<td><input type="number" min="0" name="points" id="points{{$statistic->id}}" class="form-control points" style="width:100px;" value="{{$statistic->points}}" data-index="{{$statistic->id}}"></td>
-					<td><input type="number" min="0" name="rebounds" id="rebounds{{$statistic->id}}" class="form-control rebounds" style="width:100px;" value="{{$statistic->rebounds}}" data-index="{{$statistic->id}}"></td>
-					<td><input type="number" min="0" name="assists" id="assists{{$statistic->id}}" class="form-control assists" style="width:100px;" value="{{$statistic->assists}}" data-index="{{$statistic->id}}"></td>
-					<td><input type="number" min="0" name="steals" id="steals{{$statistic->id}}" class="form-control steals" style="width:100px;" value="{{$statistic->steals}}" data-index="{{$statistic->id}}"></td>
-					<td><input type="number" min="0" name="blocks" id="blocks{{$statistic->id}}" class="form-control blocks" style="width:100px;" value="{{$statistic->blocks}}" data-index="{{$statistic->id}}"></td>
+					<td><input type="number" min="0" name="points" id="points{{$statistic->id}}" class="stat points"  value="{{$statistic->points}}" data-index="{{$statistic->id}}"></td>
+					<td><input type="number" min="0" name="rebounds" id="rebounds{{$statistic->id}}" class="stat rebounds" value="{{$statistic->rebounds}}" data-index="{{$statistic->id}}"></td>
+					<td><input type="number" min="0" name="assists" id="assists{{$statistic->id}}" class="stat assists" value="{{$statistic->assists}}" data-index="{{$statistic->id}}"></td>
+					<td><input type="number" min="0" name="steals" id="steals{{$statistic->id}}" class="stat steals" value="{{$statistic->steals}}" data-index="{{$statistic->id}}"></td>
+					<td><input type="number" min="0" name="blocks" id="blocks{{$statistic->id}}" class="stat blocks"  value="{{$statistic->blocks}}" data-index="{{$statistic->id}}"></td>
 				</tr>
 
 				@endif
@@ -135,6 +139,7 @@
   </div>
 
   <script type="text/javascript">
+  	$('#leagues').attr('class','navi');
   	$.ajaxSetup({
 	    headers: {
 	        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')

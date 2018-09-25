@@ -13,18 +13,13 @@
 
 
 		<ul class="navbar-nav mr-auto">
-			<li class="nav-item">
-				<a class="nav-link nav-text text-light" href="/">Home</a>
+			<li class="nav-item " id="homes">
+				<a class="nav-link nav-text" href="/" id="home">Home</a>
 			</li>
-			@auth
-			<li class="nav-item">
+			
+			<li class="nav-item" id="leagues">
 				<!-- This is for admin -->
-				<a class="nav-link nav-text text-light" href="">{{Auth::user()->first_name}} {{Auth::user()->last_name}}</a>
-			</li>
-			@endauth
-			<li class="nav-item">
-				<!-- This is for admin -->
-				<a class="nav-link nav-text text-light" href="/leagues">Leagues</a>
+				<a class="nav-link nav-text " href="/leagues" id="league">Leagues</a>
 			</li>
 			
 		</ul>
@@ -32,23 +27,25 @@
 		<ul class="navbar-nav ml-auto">
 			
 			@guest
-			<li class="nav-item">
+			<li class="nav-item" id="logins">
 				<!-- both login and register are for guest -->
-				<a class="nav-link nav-text text-light" href="{{ route('login') }}">Login</a>
+				<a class="nav-link nav-text " href="{{ route('login') }}" id="login">Login</a>
 			</li>
-			<li class="nav-item">
-				<a class="nav-link nav-text text-light" href="{{ route('register') }}" >Register</a>
+			<li class="nav-item" id="registers">
+				<a class="nav-link nav-text " href="{{ route('register') }}" id="register">Register</a>
 			</li>
 			@else
-			<li class="nav-item">
-				<!-- Guest may changed to name -->
-				<a class="nav-link nav-text text-light" href="/users">Settings</a>
+			
+			<li class="nav-item" id="users">
+				<!-- This is for admin -->
+				<a class="nav-link nav-text " href="/users" id="user">{{Auth::user()->first_name}} {{Auth::user()->last_name}}</a>
 			</li>
-			<li class="nav-item">
+			
+			<li class="nav-item" >
 				<!-- This is for logged in user/admin -->
-				<a class="nav-link nav-text text-light" href="{{ route('logout') }}"
+				<a class="nav-link nav-text " href="{{ route('logout') }}"
                                        onclick="event.preventDefault();
-                                                     document.getElementById('logout-form').submit();">
+                                                     document.getElementById('logout-form').submit();" id="logout">
                                         Logout
                 </a>
                 <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">

@@ -3,16 +3,16 @@
 @section('title', 'JCube Basketball | Leagues')
 
 @section('content')
-  <h1>{{$league->name}}</h1>
-  <hr class="my-3">
-
+ 
   <div class="row">
 	
-  	<div class="col-lg-12 table-responsive guide card">
+  	<div class="col-lg-12 table-responsive guide card"  id="background">
+  		<h1>{{$league->name}}</h1>
+  		<hr class="my-3">
   		<nav class="nav">
 			<ul class="nav nav-tabs mr-auto">
 				<li class="nav-item">
-					<a href="/leagues/{{$league->id}}/teams" class="nav-link ">
+					<a href="/leagues/{{$league->id}}/teams" class="nav-link " id="box-score">
 						@auth
 						@if(Auth::user()->role_id==1)
 							Teams
@@ -31,54 +31,53 @@
 						@if(Auth::user()->role_id==1)
 							Games
 						@else
-							Game Schedules
+							Schedules
 						@endif
 						@else
-							Game Schedules
+							Schedules
 						@endauth
 					</a>
 				</li>
 
 				<li class="nav-item">
-					<a href="/leagues/{{$league->id}}/players" class="nav-link">Players</a>
+					<a href="/leagues/{{$league->id}}/players" class="nav-link" id="box-score">Players</a>
 				</li>
 			</ul>
 			@auth
 			@if(Auth::user()->role_id==1)
-				<button type="button" class="btn btn-success ml-auto" data-toggle="modal" data-target="#addform">Add a Game</button>
+				<button type="button" id="addupbtn" class="btn btn-primary ml-auto" data-toggle="modal" data-target="#addform"><i class="fas fa-plus"></i></button>
 			@endif
 			@endauth
 		</nav>
+		 @if(Session::has('success_message'))
+					<div class="alert alert-success">{{Session::get('success_message')}}</div>
+				@endif
 		<hr class="my-3">
 		<div class="row">
 			@foreach($games as $game)
-				<div class="card col-lg-3 games">
+				<div class="card col-lg-3 col-md-5 col-10 games text"  id="backgrounds">
 					<div class="card-body row">
-						<div class="col-lg-6">
-							<strong><h5><input type="hidden" name="hometeamid" value="{{$game->hometeam->id}}" id="hometeam{{$game->id}}">{{$game->hometeam->name}}</h5></strong>
+						<div class=" col-6 col-md-8 col-lg-6 ">
+							<p><input type="hidden" name="hometeamid" value="{{$game->hometeam->id}}" id="hometeam{{$game->id}}">{{$game->hometeam->name}} :</p>
 						</div>
-						<div class="col-lg-3">
-							<h5>:</h5>
-						</div>
-						<div class="col-lg-3">
-							<h5><strong><h5>{{$game->home_team_score}}</h5></strong></h5>
+						
+						<div class="col-lg-3 col-md-4 col-4">
+							<p>{{$game->home_team_score}}</p>
 						</div>
 						<hr class="my-2">
-						<div class="col-lg-6">
-							<strong><h5><input type="hidden" name="awayteamid" value="{{$game->awayteam->id}}" id="awayteam{{$game->id}}">{{$game->awayteam->name}}</h5></strong>
+						<div class="col-lg-6 col-md-8 col-6">
+							<p><input type="hidden" name="awayteamid" value="{{$game->awayteam->id}}" id="awayteam{{$game->id}}">{{$game->awayteam->name}} :</p>
 						</div>
-						<div class="col-lg-3">
-							<h5>:</h5>
-						</div>
-						<div class="col-lg-3">
-							<h5><strong><h5>{{$game->away_team_score}}</h5></strong></h5>
+						
+						<div class="col-lg-3 col-md-4 col-4">
+							<p>{{$game->away_team_score}}</p>
 						</div>
 
-						<div class="col-lg-12">
-							<p><strong>Venue: </strong><span id="venue{{$game->id}}">{{$game->venue}}</span></p>
-							<p><strong>Date: </strong><span id="date{{$game->id}}">{{$game->date}}</span></p>
-							<p><strong>Time: </strong><span id="time{{$game->id}}">{{$game->time}}</span></p>
-							<p><a href="/leagues/{{$league->id}}/games/{{$game->id}}">View Box Score>>>>>>>>>>></a></p>
+						<div class="col-lg-12 col-12">
+							<p>Venue: <span id="venue{{$game->id}}">{{$game->venue}}</span></p>
+							<p>Date: <span id="date{{$game->id}}">{{$game->date}}</span></p>
+							<p>Time: <span id="time{{$game->id}}">{{$game->time}}</span></p>
+							<p><a href="/leagues/{{$league->id}}/games/{{$game->id}}" id="box-score">View Box Score>>>>>>>>></a></p>
 
 						</div>
 
@@ -140,10 +139,11 @@
 	  </div>
 	</div>	
 
-
+	
 	
  		
   <script type="text/javascript">
+  	$('#leagues').attr('class','navi');
   	$.ajaxSetup({
 	    headers: {
 	        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')

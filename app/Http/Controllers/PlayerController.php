@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Player;
 use Illuminate\Http\Request;
-
+use Session;
 class PlayerController extends Controller
 {
     /**
@@ -46,6 +46,7 @@ class PlayerController extends Controller
         $player->bpg = NULL;
         $player->spg = NULL;
         $player->save();
+        Session::flash('success_message', "Player Added successfully");
         return redirect("/leagues/$request->league_id/players");
     }
 
@@ -93,7 +94,7 @@ class PlayerController extends Controller
     {
         $player = Player::find($id);
         $player->delete();
-
+        Session::flash('success_message', "Player Deleted successfully");
         return redirect("/leagues/$request->leagueid/players/$request->teamid");
     }
 }

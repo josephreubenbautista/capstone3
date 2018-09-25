@@ -3,17 +3,18 @@
 @section('title', 'JCube Basketball | Leagues')
 
 @section('content')
-  <h1>{{$league->name}}</h1>
-  <h3>{{$game->hometeam->name}} vs. {{$game->awayteam->name}}</h3>
-  <hr class="my-3">
+  
 
   <div class="row">
 	
-  	<div class="col-lg-12 table-responsive guide card">
+  	<div class="col-lg-12 table-responsive guide card"  id="background">
+  		<h1 >{{$league->name}}</h1>
+		  <h5>{{$game->hometeam->name}} vs. {{$game->awayteam->name}}</h5>
+		  <hr class="my-3">
   		<nav class="nav">
 			<ul class="nav nav-tabs mr-auto">
 				<li class="nav-item">
-					<a href="/leagues/{{$league->id}}/teams" class="nav-link ">
+					<a href="/leagues/{{$league->id}}/teams" class="nav-link " id="box-score">
 						@auth
 						@if(Auth::user()->role_id==1)
 							Teams
@@ -27,29 +28,32 @@
 					</a>
 				</li>
 				<li class="nav-item">
-					<a href="/leagues/{{$league->id}}/games" class="nav-link active">
+					<a href="/leagues/{{$league->id}}/games" class="nav-link active" >
 						@auth
 						@if(Auth::user()->role_id==1)
 							Games
 						@else
-							Game Schedules
+							Schedules
 						@endif
 						@else
-							Game Schedules
+							Schedules
 						@endauth
 					</a>
 				</li>
 
 				<li class="nav-item">
-					<a href="/leagues/{{$league->id}}/players" class="nav-link">Players</a>
+					<a href="/leagues/{{$league->id}}/players" class="nav-link" id="box-score">Players</a>
 				</li>
 			</ul>
 			@auth
 			@if(Auth::user()->role_id==1)
-				<a href="/leagues/{{$league->id}}/games/{{$game->id}}/edit" class="btn btn-success ml-auto">Update</a>
+				<a href="/leagues/{{$league->id}}/games/{{$game->id}}/edit" id="addupbtn" class="btn btn-success ml-auto"><i class="fas fa-pencil-alt"></i></a>
 			@endif
 			@endauth
 		</nav>
+		 @if(Session::has('success_message'))
+					<div class="alert alert-success">{{Session::get('success_message')}}</div>
+				@endif
 		<hr class="my-2">
 		<div class="row">
 			<table class="col-lg-3 table" id="gameresult">
@@ -74,11 +78,11 @@
 			<thead>
 				<tr>
 					<th>Player</th>
-					<th>Points</th>
-					<th>Rebounds</th>
-					<th>Assists</th>
-					<th>Steals</th>
-					<th>Blocks</th>
+					<th>Pts</th>
+					<th>Rebs</th>
+					<th>Asts</th>
+					<th>Stls</th>
+					<th>Blks</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -111,11 +115,11 @@
 			<thead>
 				<tr>
 					<th>Player</th>
-					<th>Points</th>
-					<th>Rebounds</th>
-					<th>Assists</th>
-					<th>Steals</th>
-					<th>Blocks</th>
+					<th>Pts</th>
+					<th>Rebs</th>
+					<th>Asts</th>
+					<th>Stls</th>
+					<th>Blks</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -142,7 +146,9 @@
   </div>
 
 
- 
+ <script type="text/javascript">
+ 	$('#leagues').attr('class','navi');
+ </script>
   		
   
    

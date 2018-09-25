@@ -8,6 +8,7 @@ use App\Team;
 use App\Game;
 use App\Player;
 use App\Statistic;
+use Session;
 use Illuminate\Http\Request;
 
 
@@ -38,6 +39,7 @@ class LeagueController extends Controller
         $league = new League;
         $league->name = $request->name;
         $league->save();
+        Session::flash('success_message', "League Added successfully");
         return redirect('/leagues');
     }
 
@@ -141,6 +143,7 @@ class LeagueController extends Controller
 
         $awayteam = $game->awayteam;
         // $awayplayers = $awayteam->players;
+
         return view('games.update_gamedetails', compact('league', 'game', 'hometeam', 'awayteam', 'statistics'));
     }
 
@@ -197,7 +200,7 @@ class LeagueController extends Controller
         $game->save();
 
        
-
+        Session::flash('success_message', "Game Edited successfully");
         return compact('league', 'game', 'hometeam', 'awayteam', 'statistics', 'homescore', 'awayscore');
     }
 
@@ -289,7 +292,7 @@ class LeagueController extends Controller
 
 
         // $artists = Artist::all();
-    
+        Session::flash('success_message', "League Edited successfully");
         return redirect('/leagues');
     }
 
@@ -297,7 +300,7 @@ class LeagueController extends Controller
     {
         $league = League::find($id);
         $league->delete();
-
+        Session::flash('success_message', "League Deleted successfully");
         return redirect('/leagues');
     }
 }

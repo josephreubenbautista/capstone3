@@ -24,7 +24,7 @@ class UserController extends Controller
 
             $extension = $request->image->getClientOriginalExtension();
            	$request->image->storeAs('public/images/users', "$id.$extension");
-            $user->image = "storage/images/users/$id.$extension";
+            $user->image = "/storage/images/users/$id.$extension";
         }
         $user->save();
 
@@ -34,5 +34,15 @@ class UserController extends Controller
         // $artists = Artist::all();
     
         return redirect("/users");
+    }
+
+    public function show()
+    {
+        $users = User::all();
+        
+
+         
+        
+        return compact("users");
     }
 }

@@ -16,7 +16,7 @@
                     <form method="POST" action="/users/{{Auth::user()->id}}" enctype="multipart/form-data">
                         @csrf
                         
-                        <div class="form-group row">
+                       {{--  <div class="form-group row">
                            <img src="{{Auth::user()->image}}" class="img-fluid col-md-4" id="dp">
 
                            <div class="col-md-6 form-group ">
@@ -25,6 +25,20 @@
                                 	<input type="file" class="form-control col-md-12" name="image">
                            			
                            		</div>
+                            </div>
+                        </div>
+ --}}
+                        <div class="form-group row">
+                            <div class="col-md-6 offset-md-4">
+                            <img src="{{Auth::user()->image}}" class="img-fluid" id="dp">
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+
+                           <div class="col-md-6 offset-md-4">
+                                <input type="file" class="form-control" name="image">
+                                
                             </div>
                         </div>
 
@@ -74,4 +88,10 @@
         </div>
     </div>
 </div>
+
+
+
+<script type="text/javascript">
+   $('#users').attr('class','navi');
+</script>
 @endsection

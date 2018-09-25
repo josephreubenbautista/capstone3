@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Team;
 use Illuminate\Http\Request;
-
+use Session;
 class TeamController extends Controller
 {
     /**
@@ -42,6 +42,7 @@ class TeamController extends Controller
         $team->lose = 0;
         $team->league_id = $request->leagueid;
         $team->save();
+        Session::flash('success_message', "$request->name Added successfully");
         return redirect("/leagues/$request->leagueid/teams");
     }
 
@@ -83,7 +84,7 @@ class TeamController extends Controller
 
         $team->save();
 
-
+        Session::flash('success_message', "$team->name Edited successfully");
         // $artists = Artist::all();
     
         return redirect("/leagues/$request->leagueid/teams");
@@ -98,8 +99,9 @@ class TeamController extends Controller
     public function destroy(Request $request, $id)
     {
         $team = Team::find($id);
+        
         $team->delete();
-
+        Session::flash('success_message', "Team Deleted successfully");
         return redirect("/leagues/$request->leagueid/teams");
     }
 }

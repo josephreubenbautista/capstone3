@@ -1,5 +1,5 @@
 @extends('template')
-
+@section('title', 'JCube Basketball | Register')
 @section('content')
 <div class="container">
     <div class="row justify-content-center">
@@ -88,7 +88,7 @@
 
                         <div class="form-group row mb-0">
                             <div class="col-md-6 offset-md-4">
-                                <button type="submit" class="btn btn-primary">
+                                <button type="submit" id="register" class="btn btn-primary">
                                     {{ __('Register') }}
                                 </button>
                             </div>
@@ -99,4 +99,12 @@
         </div>
     </div>
 </div>
+
+
+
+<script type="text/javascript">
+   $('#registers').attr('class','navi');
+
+
+</script>
 @endsection

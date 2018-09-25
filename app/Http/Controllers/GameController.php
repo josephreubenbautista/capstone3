@@ -6,7 +6,7 @@ use App\Game;
 use App\Statistic;
 use App\Team;
 Use App\League;
-
+use Session;
 use Illuminate\Http\Request;
 
 class GameController extends Controller
@@ -90,6 +90,7 @@ class GameController extends Controller
         }
         
         
+        Session::flash('success_message', "Game Added successfully");
 
         return redirect("/leagues/$request->league_id/games");
     }

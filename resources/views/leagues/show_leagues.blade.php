@@ -3,11 +3,15 @@
 @section('title', 'JCube Basketball | Leagues')
 
 @section('content')
-  <h1>League</h1>
-  <hr class="my-3">
+  
 
   <div class="row">
   	<div class="col-lg-12 table-responsive guide card" id="background">
+  		<h1>League</h1>
+  		<hr class="my-3">
+  		 @if(Session::has('success_message'))
+					<div class="alert alert-success">{{Session::get('success_message')}}</div>
+				@endif
   	@auth
   	@if(Auth::user()->role_id==1)
   		<form method="post" action="/leagues">
@@ -125,8 +129,9 @@
 	  </div>
 	</div>	
 
-
+	
 	<script type="text/javascript">
+		$('#leagues').attr('class','navi');
 
 		$('.delete-btn').click( function(e) {
 			let leagueId = e.target.getAttribute('data-index');
@@ -148,6 +153,7 @@
 			$('#editmodal').attr('action', '/leagues/'+leagueId);
 
 		});
+
 
 	</script>
    

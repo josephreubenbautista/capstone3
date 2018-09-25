@@ -75,4 +75,8 @@
 
     </div>
 
+
+<script type="text/javascript">
+   $('#homes').attr('class','navi');
+</script>
 @endsection

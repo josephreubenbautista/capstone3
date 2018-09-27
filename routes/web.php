@@ -48,7 +48,8 @@ Route::post('/leagues/{leagueid}/games/{gameid}/standings', 'LeagueController@st
 
 
 Route::post('/users/{id}', 'UserController@update');
-
+Route::get('/users/validate', 'UserController@show');
+Route::get('/users/{id}/myleagues', 'UserController@showleagues');
 
 Route::resource('/teams','TeamController');
 
@@ -59,3 +60,5 @@ Route::resource('/players','PlayerController');
 Route::resource('/games','GameController');
 
 Route::post('/games/teams', 'GameController@viewteams');
+
+

@@ -28,6 +28,9 @@
 					</a>
 				</li>
 				<li class="nav-item">
+					<a href="/leagues/{{$league->id}}/players" class="nav-link" id="box-score">Players</a>
+				</li>
+				<li class="nav-item">
 					<a href="/leagues/{{$league->id}}/games" class="nav-link active" >
 						@auth
 						@if(Auth::user()->role_id==1)
@@ -41,9 +44,6 @@
 					</a>
 				</li>
 
-				<li class="nav-item">
-					<a href="/leagues/{{$league->id}}/players" class="nav-link" id="box-score">Players</a>
-				</li>
 			</ul>
 			@auth
 			@if(Auth::user()->role_id==1)

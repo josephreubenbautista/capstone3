@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Player;
 use Illuminate\Http\Request;
 use Session;
+use App\User;
 class PlayerController extends Controller
 {
     /**
@@ -97,4 +98,7 @@ class PlayerController extends Controller
         Session::flash('success_message', "Player Deleted successfully");
         return redirect("/leagues/$request->leagueid/players/$request->teamid");
     }
+
+
+    
 }

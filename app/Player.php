@@ -3,10 +3,10 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
-use SoftDeletes;
-
+use Illuminate\Database\Eloquent\SoftDeletes;
 class Player extends Model
 {
+    use SoftDeletes;
 	public $timestamps = false;
     protected $dates =['deleted_at'];
 

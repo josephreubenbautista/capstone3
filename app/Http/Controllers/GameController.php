@@ -58,39 +58,47 @@ class GameController extends Controller
         $game->away_team_id = $request->away_team_id;
         $game->home_team_score = 0;
         $game->away_team_score = 0;
-        $game->save();
 
-        $games = Game::find($game->id);
-        foreach($games->hometeam->players as $player){
-            $statistic = new Statistic;
-            $statistic->game_id = $games->id;
-            $statistic->player_id = $player->id;
-            $statistic->league_id = $games->league_id;
-            $statistic->points = 0;
-            $statistic->assists = 0;
-            $statistic->steals = 0;
-            $statistic->blocks = 0;
-            $statistic->rebounds = 0;
-            $statistic->save();
+        $hometeam = Team::find($request->home_team_id);
+        $awayteam = Team::find($request->away_team_id);
 
+        if(count($hometeam->players)>0 && count($awayteam->players)>0){
+            $game->save();
+
+            $games = Game::find($game->id);
+            foreach($games->hometeam->players as $player){
+                $statistic = new Statistic;
+                $statistic->game_id = $games->id;
+                $statistic->player_id = $player->id;
+                $statistic->league_id = $games->league_id;
+                $statistic->points = 0;
+                $statistic->assists = 0;
+                $statistic->steals = 0;
+                $statistic->blocks = 0;
+                $statistic->rebounds = 0;
+                $statistic->save();
+
+            }
+
+            foreach($games->awayteam->players as $player){
+                $statistic = new Statistic;
+                $statistic->game_id = $games->id;
+                $statistic->player_id = $player->id;
+                $statistic->league_id = $games->league_id;
+                $statistic->points = 0;
+                $statistic->assists = 0;
+                $statistic->steals = 0;
+                $statistic->blocks = 0;
+                $statistic->rebounds = 0;
+                $statistic->save();
+
+            }
+            
+            
+            Session::flash('success_message', "Game Added successfully");
+        }else{
+            Session::flash('error_message', "Game unsuccessfully added. Please check if there is a player in the participating teams.");
         }
-
-        foreach($games->awayteam->players as $player){
-            $statistic = new Statistic;
-            $statistic->game_id = $games->id;
-            $statistic->player_id = $player->id;
-            $statistic->league_id = $games->league_id;
-            $statistic->points = 0;
-            $statistic->assists = 0;
-            $statistic->steals = 0;
-            $statistic->blocks = 0;
-            $statistic->rebounds = 0;
-            $statistic->save();
-
-        }
-        
-        
-        Session::flash('success_message', "Game Added successfully");
 
         return redirect("/leagues/$request->league_id/games");
     }

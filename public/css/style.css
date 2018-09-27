@@ -47,7 +47,7 @@ body{
 	color: rgb(255, 250, 240);
 }
 
-#league {
+#league, #myleagues {
 	color: rgb(255, 250, 240);
 }
 
@@ -67,7 +67,9 @@ body{
 	color: rgb(255, 250, 240);
 }
 
-
+#goto{
+	color:blue;
+}
 
 #logincard{
 	background-color: rgba(119, 136, 153,0.2);

@@ -23,6 +23,9 @@
 					</a>
 				</li>
 				<li class="nav-item">
+					<a href="/leagues/{{$league->id}}/players" class="nav-link" id="box-score">Players</a>
+				</li>
+				<li class="nav-item">
 					<a href="/leagues/{{$league->id}}/games" class="nav-link active">
 						@if(Auth::user()->role_id==1)
 							Games
@@ -32,15 +35,12 @@
 					</a>
 				</li>
 
-				<li class="nav-item">
-					<a href="/leagues/{{$league->id}}/players" class="nav-link" id="box-score">Players</a>
-				</li>
 			</ul>
 			<form method="post" action="/leagues/{{$league->id}}/games/{{$game->id}}/standings">
 				{{csrf_field()}}
 				<input type="hidden" name="homescore" id="homescored" value="{{$game->home_team_score}}">
 				<input type="hidden" name="awayscore" id="awayscored" value="{{$game->away_team_score}}">
-				<button id="addupbtn" class="btn btn-success ml-auto"><i class="far fa-save"></i></button>
+				<button id="addupbtn" class="btn btn-success ml-auto">{{-- <i class="far fa-save"></i> --}}Finalize</button>
 			</form>
 			{{-- <a href="/leagues/{{$league->id}}/games/{{$game->id}}/edit" class="btn btn-success ml-auto">Finalize</a> --}}
 		</nav>

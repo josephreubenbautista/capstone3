@@ -35,4 +35,8 @@ class User extends Authenticatable
     function role(){
         return $this->belongsTo('App\Role');
     }
+
+    function leauges(){
+        return $this->belongsToMany('App\League', 'players');
+    }
 }

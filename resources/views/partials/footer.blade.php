@@ -1,6 +1,3 @@
-{{-- <footer class="footer">
-	<small>Joseph Reuben Bautista   |   © 2018 All rights reserved </small>
-</footer> --}}
 
 
 <footer class="footer">
@@ -17,6 +14,6 @@
 			</p>
 		</div>
 
-		<
+		
 	</div>
 </footer>

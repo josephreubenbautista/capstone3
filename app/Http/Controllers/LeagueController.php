@@ -215,20 +215,35 @@ class LeagueController extends Controller
         $homestand = Team::find($game->hometeam->id);
         $homewin = $homestand->win;
         $homelose = $homestand->lose;
+        $homestandcount = $homewin + $homelose;
 
         $awaystand = Team::find($game->awayteam->id);
         $awaywin = $awaystand->win;
         $awaylose = $awaystand->lose;
+        $awaystandcount = $awaywin + $awaylose;
 
-        if($homescore>$awayscore){
-            $homewin +=1;
-            $awaylose +=1;
-        }else if($homescore<$awayscore){
-            $awaywin +=1;
-            $homelose +=1;
-        }else{
+        // $homegames = Game::where('home_team_id', $game->hometeam->id)->get();
+        // $awaygames = Game::where('away_team_id', $game->awayteam->id)->get();
 
-        }
+
+
+       
+
+        // if(count($homegames)>$homestandcount){
+            if($homescore>$awayscore){
+                $homewin +=1;
+            }else if($homescore<$awayscore){
+                $homelose +=1;
+            }     
+        // }
+
+        // if(count($awaygames)>$awaystandcount){
+            if($homescore>$awayscore){
+                $awaylose +=1;
+            }else if($homescore<$awayscore){
+                $awaywin +=1;
+            }     
+        // }
 
         $homestand->win = $homewin;
         $homestand->lose = $homelose;

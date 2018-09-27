@@ -8,7 +8,8 @@
                 <div class="card-header">{{ __('Register') }}</div>
 
                 <div class="card-body">
-                    <form method="POST" action="{{ route('register') }}">
+                    <div class="alert alert-danger" id="alerts"><ul id="error"></ul></div>
+                    <form method="POST" action="{{ route('register') }}" id="reg">
                         @csrf
 
                         <div class="form-group row">
@@ -88,7 +89,7 @@
 
                         <div class="form-group row mb-0">
                             <div class="col-md-6 offset-md-4">
-                                <button type="submit" id="register" class="btn btn-primary">
+                                <button type="button" id="registerbtn" class="btn btn-primary">
                                     {{ __('Register') }}
                                 </button>
                             </div>
@@ -104,7 +105,89 @@
 
 <script type="text/javascript">
    $('#registers').attr('class','navi');
+   $('#alerts').hide();
+   $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+    });
 
+        
+   $('#registerbtn').click( ()=>{
+        let htmlstring = '';
+        let errorflag = false;
+        let email = $('#email').val();
+        let password = $('#password').val();
+        let lastname = $('#lastname').val();
+        let username = $('#username').val();
+        let firstname = $('#firstname').val();
+        let confirm = $('#password-confirm').val();
+
+        
+
+
+        $.ajax({
+             url : '/users/validate',
+            method : 'get',
+             data : {email : email, username : username},
+             // async:false,
+        }).done( data =>{
+            if(firstname.length==0){
+                errorflag = true;
+                htmlstring += "<li>Please Input First Name.</li>";
+            }
+
+            if(lastname.length==0){
+                errorflag  = true;
+                htmlstring += "<li>Please Input Last Name.</li>";
+            }
+
+            if(password.length==0){
+                errorflag  = true;
+                htmlstring += "<li>Please Input Password.</li>";
+            }else if(password.length>0 && password.length<6){
+                errorflag  = true;
+                htmlstring += "<li>Please Input at least 6-character Password.</li>";
+            }else{
+                if(password!=confirm){
+                    errorflag=true;
+                    htmlstring += "<li>Password didn't match.</li>";
+                }
+            }
+            console.log(data);
+            if(username.length==0){
+                errorflag  = true;
+                htmlstring += "<li>Please Input Username.</li>";
+            }else{
+                if(data['result_username']=="true"){
+                    errorflag  = true;
+                    htmlstring += "<li>Username Already Exist</li>";
+                }
+            }
+
+            if(email.length==0){
+                errorflag  = true;
+                htmlstring += "<li>Please Input Email.</li>";
+            }else{
+                if(data['result_email']=="true"){
+                    errorflag  = true;
+                    htmlstring += "<li>Email Already Exist</li>";
+                }
+            }
+
+            if(errorflag==true){
+                $('#alerts').show();
+                $('#error').html(htmlstring);
+            }else{
+                $('#reg').submit();
+            }
+            
+         });
+
+        
+        
+
+    });
 
 </script>
 @endsection

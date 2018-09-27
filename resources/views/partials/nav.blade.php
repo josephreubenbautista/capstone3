@@ -35,6 +35,12 @@
 				<a class="nav-link nav-text " href="{{ route('register') }}" id="register">Register</a>
 			</li>
 			@else
+
+
+			<li class="nav-item" id="myleagues">
+				<!-- This is for admin -->
+				<a class="nav-link nav-text " href="/users/{{Auth::id()}}/myleagues" id="myleagues">MyLeagues</a>
+			</li>
 			
 			<li class="nav-item" id="users">
 				<!-- This is for admin -->

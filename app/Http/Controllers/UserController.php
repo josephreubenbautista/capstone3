@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\User;
 use Session;
+
+use App\Player;
 class UserController extends Controller
 {
     public function update(Request $request, $id)
@@ -14,8 +16,6 @@ class UserController extends Controller
         $user->last_name = $request->last_name;
         $user->contact_number = $request->contact_number;
         $user->description = $request->description;
-     
-        // $user->save();
 
         if($request->hasFile('image')) {
             // $filename = $request->image->getClientOriginalName();
@@ -23,7 +23,7 @@ class UserController extends Controller
             // $artist->image = 'images/users/'.$filename; 
 
             $extension = $request->image->getClientOriginalExtension();
-           	$request->image->storeAs('public/images/users', "$id.$extension");
+            $request->image->move('storage/images/users', "$id.$extension");
             $user->image = "/storage/images/users/$id.$extension";
         }
         $user->save();
@@ -36,13 +36,30 @@ class UserController extends Controller
         return redirect("/users");
     }
 
-    public function show()
+    public function show(Request $request)
     {
-        $users = User::all();
+        $users_email = User::where('email', $request->email)->get();
+        $users_username = User::where('username', $request->username)->get();
+        $result_email = 'true';
+        $result_username = 'true';
+        if(count($users_email)==0){
+            $result_email='false';
+        }
+        if(count($users_username)==0){
+            $result_username='false';
+        }
+        // $users = User::all();
+        // echo $result;
+        return compact('result_email', 'result_username');
         
-
-         
-        
-        return compact("users");
     }
+
+    public function showleagues($id){
+        $players = Player::where('user_id', $id)->get();
+        // dd($players);
+
+         return view('users.show_myleagues', compact('players'));
+    }
+
+
 }

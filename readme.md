@@ -1,1 +1,1 @@
-This project is about a social media site for basketball players of the Jcube Basketball League. This project is a partial fulfillment for the requirement of Tuitt's (now named Zuitt) Full-stack Web Developer Bootcamp that lasted 3 months.
+This project is about a social media site for basketball players of the Jcube Basketball League. This project is a partial fulfillment for the requirement of Tuitt's (now named Zuitt) Full-stack Web Developer Bootcamp that lasted 3 months. This project used Laravel as a back-end framework and Jquery as a front-end framework.
